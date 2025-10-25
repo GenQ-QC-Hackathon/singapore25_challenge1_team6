@@ -134,6 +134,34 @@ textarea:focus-visible {
   border-width: 0;
 }
 
+/* Touch Optimization */
+@media (hover: none) and (pointer: coarse) {
+  /* Ensure minimum touch target size of 44x44px on touch devices */
+  button,
+  a,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    min-height: 44px;
+  }
+  
+  /* Improve tap responsiveness */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+}
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+  html {
+    font-size: 16px; /* Prevent zoom on input focus on iOS */
+  }
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *,

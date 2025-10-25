@@ -7,12 +7,12 @@ export default function Footer() {
 
   return (
     <footer 
-      className="mt-20 border-t border-slate-200 bg-white"
+      className="mt-12 sm:mt-16 md:mt-20 border-t border-slate-200 bg-white"
       role="contentinfo"
       aria-label="Site footer"
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
           {/* About Section */}
           <div>
             <h3 className="text-lg font-semibold text-slate-900 mb-3">
@@ -100,8 +100,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 pt-6 border-t border-slate-200">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-6 sm:mt-8 pt-6 border-t border-slate-200">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 text-center md:text-left">
             <div className="flex items-center gap-2 text-slate-600 text-sm">
               <span>Built with</span>
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
@@ -111,7 +111,8 @@ export default function Footer() {
               GenQ Hackathon {currentYear}
             </div>
             <div className="text-slate-500 text-xs font-mono">
-              Powered by Qiskit × Next.js × TailwindCSS
+              <span className="hidden sm:inline">Powered by Qiskit × Next.js × TailwindCSS</span>
+              <span className="sm:hidden">Qiskit × Next.js × Tailwind</span>
             </div>
           </div>
         </div>
