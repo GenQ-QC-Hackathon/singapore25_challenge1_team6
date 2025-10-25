@@ -16,7 +16,8 @@ export default function Navbar() {
 
   return (
     <nav 
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm"
+      id="navigation"
+      className="fixed top-0 left-0 right-0 z-50 glass shadow-sm"
       style={{ height: '64px' }}
       role="navigation"
       aria-label="Main navigation"
@@ -91,7 +92,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-lg">
+        <div className="md:hidden absolute top-16 left-0 right-0 glass-strong shadow-lg">
           <div className="container mx-auto px-4 py-4">
             <ul className="space-y-2" role="list">
               {navLinks.map((link) => {

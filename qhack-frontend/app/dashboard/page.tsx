@@ -1,13 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { apiClient, ClassicalResult, QuantumResult } from '@/lib/api';
-import ConfigPanel, { ConfigParams } from '@/components/dashboard/ConfigPanel';
-import ResultCard from '@/components/dashboard/ResultCard';
-import ComparisonView from '@/components/dashboard/ComparisonView';
-import EmptyState from '@/components/dashboard/EmptyState';
+import { ConfigParams } from '@/components/dashboard/ConfigPanel';
+
+// Lazy load heavy components for better initial load performance
+const ConfigPanel = lazy(() => import('@/components/dashboard/ConfigPanel'));
+const ResultCard = lazy(() => import('@/components/dashboard/ResultCard'));
+const ComparisonView = lazy(() => import('@/components/dashboard/ComparisonView'));
+const EmptyState = lazy(() => import('@/components/dashboard/EmptyState'));
+
+// Loading fallback component
+function ComponentLoader() {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+}
 
 export default function DashboardPage() {
   // Form state
@@ -90,13 +102,15 @@ export default function DashboardPage() {
       <div className="flex h-screen overflow-hidden">
         {/* Config Sidebar - Desktop & Tablet */}
         <div className="hidden md:block md:w-1/3 lg:w-1/4 md:min-w-[320px] lg:max-w-[400px]">
-          <ConfigPanel
-            params={params}
-            onParamsChange={setParams}
-            onRunSimulation={runBothSimulations}
-            loading={loading}
-            error={error}
-          />
+          <Suspense fallback={<ComponentLoader />}>
+            <ConfigPanel
+              params={params}
+              onParamsChange={setParams}
+              onRunSimulation={runBothSimulations}
+              loading={loading}
+              error={error}
+            />
+          </Suspense>
         </div>
 
         {/* Results Area - Desktop & Tablet */}
@@ -104,26 +118,32 @@ export default function DashboardPage() {
           <div className="p-8 space-y-6">
             {/* Empty State or Results */}
             {!hasResults ? (
-              <EmptyState />
+              <Suspense fallback={<ComponentLoader />}>
+                <EmptyState />
+              </Suspense>
             ) : (
               <>
                 {/* Result Cards */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <AnimatePresence>
                     {classicalResult && (
-                      <ResultCard
-                        type="classical"
-                        result={classicalResult}
-                      />
+                      <Suspense fallback={<ComponentLoader />}>
+                        <ResultCard
+                          type="classical"
+                          result={classicalResult}
+                        />
+                      </Suspense>
                     )}
                   </AnimatePresence>
 
                   <AnimatePresence>
                     {quantumResult && (
-                      <ResultCard
-                        type="quantum"
-                        result={quantumResult}
-                      />
+                      <Suspense fallback={<ComponentLoader />}>
+                        <ResultCard
+                          type="quantum"
+                          result={quantumResult}
+                        />
+                      </Suspense>
                     )}
                   </AnimatePresence>
                 </div>
@@ -131,10 +151,12 @@ export default function DashboardPage() {
                 {/* Comparison Panel */}
                 <AnimatePresence>
                   {hasBothResults && (
-                    <ComparisonView
-                      classicalResult={classicalResult}
-                      quantumResult={quantumResult}
-                    />
+                    <Suspense fallback={<ComponentLoader />}>
+                      <ComparisonView
+                        classicalResult={classicalResult}
+                        quantumResult={quantumResult}
+                      />
+                    </Suspense>
                   )}
                 </AnimatePresence>
               </>
@@ -146,7 +168,7 @@ export default function DashboardPage() {
       {/* Mobile Layout */}
       <div className="md:hidden min-h-screen flex flex-col">
         {/* Mobile Header */}
-        <div className="bg-white border-b border-slate-200 px-4 py-4 flex items-center justify-between sticky top-0 z-20">
+        <div className="glass border-b-0 px-4 py-4 flex items-center justify-between sticky top-0 z-20 shadow-sm">
           <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
             Quantum Risk Engine
           </h1>
@@ -166,35 +188,43 @@ export default function DashboardPage() {
         {/* Mobile Results Area */}
         <div className="flex-1 overflow-y-auto p-4">
           {!hasResults ? (
-            <EmptyState />
+            <Suspense fallback={<ComponentLoader />}>
+              <EmptyState />
+            </Suspense>
           ) : (
             <div className="space-y-6">
               {/* Result Cards - Stacked */}
               <AnimatePresence>
                 {classicalResult && (
-                  <ResultCard
-                    type="classical"
-                    result={classicalResult}
-                  />
+                  <Suspense fallback={<ComponentLoader />}>
+                    <ResultCard
+                      type="classical"
+                      result={classicalResult}
+                    />
+                  </Suspense>
                 )}
               </AnimatePresence>
 
               <AnimatePresence>
                 {quantumResult && (
-                  <ResultCard
-                    type="quantum"
-                    result={quantumResult}
-                  />
+                  <Suspense fallback={<ComponentLoader />}>
+                    <ResultCard
+                      type="quantum"
+                      result={quantumResult}
+                    />
+                  </Suspense>
                 )}
               </AnimatePresence>
 
               {/* Comparison Panel */}
               <AnimatePresence>
                 {hasBothResults && (
-                  <ComparisonView
-                    classicalResult={classicalResult}
-                    quantumResult={quantumResult}
-                  />
+                  <Suspense fallback={<ComponentLoader />}>
+                    <ComparisonView
+                      classicalResult={classicalResult}
+                      quantumResult={quantumResult}
+                    />
+                  </Suspense>
                 )}
               </AnimatePresence>
             </div>
@@ -206,7 +236,7 @@ export default function DashboardPage() {
           <motion.div
             initial={{ y: 100 }}
             animate={{ y: 0 }}
-            className="sticky bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-200 shadow-lg z-10"
+            className="sticky bottom-0 left-0 right-0 p-4 glass border-t-0 shadow-lg z-10"
           >
             <button
               onClick={() => setIsMobileSidebarOpen(true)}
@@ -227,7 +257,7 @@ export default function DashboardPage() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="fixed inset-0 bg-black/50 z-30"
+                className="fixed inset-0 glass-dark z-30"
                 onClick={() => setIsMobileSidebarOpen(false)}
               />
 
@@ -237,15 +267,17 @@ export default function DashboardPage() {
                 animate={{ x: 0 }}
                 exit={{ x: '-100%' }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="fixed inset-y-0 left-0 w-full max-w-md bg-white z-40 overflow-y-auto"
+                className="fixed inset-y-0 left-0 w-full max-w-md bg-white border-r border-slate-200 shadow-2xl z-40 overflow-y-auto"
               >
-                <ConfigPanel
-                  params={params}
-                  onParamsChange={setParams}
-                  onRunSimulation={runBothSimulations}
-                  loading={loading}
-                  error={error}
-                />
+                <Suspense fallback={<ComponentLoader />}>
+                  <ConfigPanel
+                    params={params}
+                    onParamsChange={setParams}
+                    onRunSimulation={runBothSimulations}
+                    loading={loading}
+                    error={error}
+                  />
+                </Suspense>
               </motion.div>
             </>
           )}

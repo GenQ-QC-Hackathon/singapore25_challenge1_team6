@@ -5,6 +5,7 @@ export default function Footer() {
 
   return (
     <footer 
+      id="footer"
       className="h-16 border-t border-slate-200 bg-slate-50"
       role="contentinfo"
       aria-label="Site footer"
