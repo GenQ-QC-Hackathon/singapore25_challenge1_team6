@@ -95,7 +95,7 @@ export default function AboutPage() {
           className="max-w-[800px] mx-auto"
           aria-labelledby="mission-section-heading"
         >
-          <article className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm text-center">
+          <article className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 ease-out text-center">
             <h2 
               id="mission-section-heading"
               className="text-2xl font-bold text-slate-900 mb-3"
