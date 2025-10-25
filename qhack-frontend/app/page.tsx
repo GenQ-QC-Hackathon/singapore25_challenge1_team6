@@ -71,7 +71,7 @@ export default function Home() {
           <motion.article 
             whileHover={{ y: -8, scale: 1.01 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-shadow duration-200 max-w-[360px] mx-auto w-full cursor-default border border-slate-200"
+            className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-all duration-200 ease-out max-w-[360px] mx-auto w-full cursor-default border border-slate-200"
           >
             <div className="w-12 h-12 rounded-full bg-blue-50 border-2 border-blue-500 flex items-center justify-center mb-4 transition-transform duration-200">
               <Zap className="w-6 h-6 text-blue-600" aria-hidden="true" />
@@ -88,7 +88,7 @@ export default function Home() {
           <motion.article 
             whileHover={{ y: -8, scale: 1.01 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-shadow duration-200 max-w-[360px] mx-auto w-full cursor-default border border-slate-200"
+            className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-all duration-200 ease-out max-w-[360px] mx-auto w-full cursor-default border border-slate-200"
           >
             <div className="w-12 h-12 rounded-full bg-violet-50 border-2 border-violet-500 flex items-center justify-center mb-4 transition-transform duration-200">
               <TrendingUp className="w-6 h-6 text-violet-600" aria-hidden="true" />
@@ -105,7 +105,7 @@ export default function Home() {
           <motion.article 
             whileHover={{ y: -8, scale: 1.01 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-shadow duration-200 max-w-[360px] mx-auto w-full cursor-default border border-slate-200"
+            className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-all duration-200 ease-out max-w-[360px] mx-auto w-full cursor-default border border-slate-200"
           >
             <div className="w-12 h-12 rounded-full bg-slate-50 border-2 border-slate-400 flex items-center justify-center mb-4 transition-transform duration-200">
               <Shield className="w-6 h-6 text-slate-700" aria-hidden="true" />

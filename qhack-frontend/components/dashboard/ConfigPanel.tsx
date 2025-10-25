@@ -336,10 +336,10 @@ export default function ConfigPanel({
         <motion.button
           onClick={onRunSimulation}
           disabled={loading}
-          className="w-full h-14 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg font-semibold text-white text-base flex items-center justify-center gap-2 shadow-lg transition-shadow duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          className="w-full h-14 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg font-semibold text-white text-base flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all duration-200 ease-out disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           aria-label="Run both classical and quantum simulations"
           aria-busy={loading}
-          whileHover={!loading ? { scale: 1.02, boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)' } : undefined}
+          whileHover={!loading ? { scale: 1.02 } : undefined}
           whileTap={!loading ? { scale: 0.98 } : undefined}
           transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
