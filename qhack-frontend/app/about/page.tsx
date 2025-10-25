@@ -112,7 +112,7 @@ export default function AboutPage() {
               Leverage quantum computing to democratize advanced financial risk management,
               making enterprise-grade tools accessible to all financial institutions.
             </p>
-          </div>
+          </article>
 
           {/* Innovation */}
           <article className="bg-white border border-slate-200 p-8 rounded-xl shadow-sm">
@@ -126,7 +126,7 @@ export default function AboutPage() {
               Combining Quantum Amplitude Estimation with classical Monte Carlo to achieve
               quadratic speedups in derivative pricing and risk calculations.
             </p>
-          </div>
+          </article>
 
           {/* Impact */}
           <article className="bg-white border border-slate-200 p-8 rounded-xl shadow-sm">

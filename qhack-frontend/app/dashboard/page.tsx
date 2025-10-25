@@ -476,7 +476,7 @@ export default function DashboardPage() {
                       <p className="text-xl font-mono text-slate-900">{classicalResult.sample_std.toFixed(2)}</p>
                     </div>
                   </div>
-                </motion.div>
+                </motion.section>
               )}
             </AnimatePresence>
 

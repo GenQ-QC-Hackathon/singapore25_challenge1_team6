@@ -3,7 +3,6 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CursorTrail from "@/components/CursorTrail";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,7 +32,6 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        <CursorTrail />
         <Navbar />
         <main className="pt-20">
           {children}
