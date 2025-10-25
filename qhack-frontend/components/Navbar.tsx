@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <nav 
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200"
+      className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm"
       style={{ height: '64px' }}
       role="navigation"
       aria-label="Main navigation"
