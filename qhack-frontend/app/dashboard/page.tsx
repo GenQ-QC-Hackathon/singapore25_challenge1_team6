@@ -360,11 +360,11 @@ export default function DashboardPage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-8 space-y-3">
+              <div className="mt-6 sm:mt-8 space-y-3">
                 <button
                   onClick={runBoth}
                   disabled={loading.both}
-                  className="w-full py-4 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg font-semibold text-white flex items-center justify-center gap-2 hover:from-blue-700 hover:to-violet-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                  className="w-full py-3.5 sm:py-4 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg font-semibold text-white text-base flex items-center justify-center gap-2 hover:from-blue-700 hover:to-violet-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm touch-manipulation active:scale-95"
                   aria-label="Run both classical and quantum simulations"
                   aria-busy={loading.both}
                 >
@@ -379,18 +379,19 @@ export default function DashboardPage() {
                   <button
                     onClick={runClassical}
                     disabled={loading.classical}
-                    className="py-3 bg-white border border-blue-300 rounded-lg font-medium text-blue-600 flex items-center justify-center gap-2 hover:bg-blue-50 transition-colors duration-200 disabled:opacity-50"
+                    className="py-3 sm:py-3.5 bg-white border border-blue-300 rounded-lg font-medium text-blue-600 text-sm sm:text-base flex items-center justify-center gap-2 hover:bg-blue-50 transition-colors duration-200 disabled:opacity-50 touch-manipulation active:scale-95"
                     aria-label="Run classical Monte Carlo simulation"
                     aria-busy={loading.classical}
                   >
                     {loading.classical ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Activity className="w-4 h-4" aria-hidden="true" />}
-                    Classical
+                    <span className="hidden sm:inline">Classical</span>
+                    <span className="sm:hidden">Classic</span>
                   </button>
 
                   <button
                     onClick={runQuantum}
                     disabled={loading.quantum}
-                    className="py-3 bg-white border border-violet-300 rounded-lg font-medium text-violet-600 flex items-center justify-center gap-2 hover:bg-violet-50 transition-colors duration-200 disabled:opacity-50"
+                    className="py-3 sm:py-3.5 bg-white border border-violet-300 rounded-lg font-medium text-violet-600 text-sm sm:text-base flex items-center justify-center gap-2 hover:bg-violet-50 transition-colors duration-200 disabled:opacity-50 touch-manipulation active:scale-95"
                     aria-label="Run quantum amplitude estimation simulation"
                     aria-busy={loading.quantum}
                   >
@@ -417,7 +418,7 @@ export default function DashboardPage() {
           </motion.div>
 
           {/* Right: Results */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
             {/* Classical Result */}
             <AnimatePresence>
               {classicalResult && (
@@ -426,54 +427,55 @@ export default function DashboardPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white border-l-4 border-blue-500 rounded-xl p-6 shadow-sm"
+                  className="bg-white border-l-4 border-blue-500 rounded-xl p-4 sm:p-6 shadow-sm"
                   aria-labelledby="classical-results-heading"
                   aria-live="polite"
                 >
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3">
                     <h3 
                       id="classical-results-heading"
-                      className="text-2xl font-bold text-slate-900 flex items-center gap-2"
+                      className="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2"
                     >
-                      <Activity className="w-6 h-6 text-blue-500" aria-hidden="true" />
-                      Classical Monte Carlo
+                      <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" aria-hidden="true" />
+                      <span className="hidden sm:inline">Classical Monte Carlo</span>
+                      <span className="sm:hidden">Classical MC</span>
                     </h3>
-                    <div className="px-4 py-2 bg-blue-50 border border-blue-200 rounded-full">
-                      <span className="text-blue-600 font-mono text-sm">O(1/√N)</span>
+                    <div className="px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-50 border border-blue-200 rounded-full">
+                      <span className="text-blue-600 font-mono text-xs sm:text-sm">O(1/√N)</span>
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-slate-50 rounded-lg p-4">
-                      <p className="text-slate-600 text-sm mb-1">Potential Future Exposure</p>
-                      <p className="text-3xl font-bold text-blue-600">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="bg-slate-50 rounded-lg p-3 sm:p-4">
+                      <p className="text-slate-600 text-xs sm:text-sm mb-1">Potential Future Exposure</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-blue-600">
                         ${classicalResult.pfe.toFixed(2)}
                       </p>
                     </div>
-                    <div className="bg-slate-50 rounded-lg p-4">
-                      <p className="text-slate-600 text-sm mb-1">Expected Exposure</p>
-                      <p className="text-3xl font-bold text-blue-600">
+                    <div className="bg-slate-50 rounded-lg p-3 sm:p-4">
+                      <p className="text-slate-600 text-xs sm:text-sm mb-1">Expected Exposure</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-blue-600">
                         ${classicalResult.expected_exposure.toFixed(2)}
                       </p>
                     </div>
-                    <div className="bg-slate-50 rounded-lg p-4">
-                      <p className="text-slate-600 text-sm mb-1 flex items-center gap-1">
-                        <Clock className="w-4 h-4" /> Runtime
+                    <div className="bg-slate-50 rounded-lg p-3 sm:p-4 sm:col-span-2 md:col-span-1">
+                      <p className="text-slate-600 text-xs sm:text-sm mb-1 flex items-center gap-1">
+                        <Clock className="w-3 h-3 sm:w-4 sm:h-4" /> Runtime
                       </p>
-                      <p className="text-3xl font-bold text-blue-600">
+                      <p className="text-2xl sm:text-3xl font-bold text-blue-600">
                         {classicalResult.runtime_ms.toFixed(1)}ms
                       </p>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
                     <div className="bg-slate-50 rounded-lg p-3">
-                      <p className="text-slate-600 text-sm">Samples Used</p>
-                      <p className="text-xl font-mono text-slate-900">{classicalResult.samples_used.toLocaleString()}</p>
+                      <p className="text-slate-600 text-xs sm:text-sm">Samples Used</p>
+                      <p className="text-lg sm:text-xl font-mono text-slate-900">{classicalResult.samples_used.toLocaleString()}</p>
                     </div>
                     <div className="bg-slate-50 rounded-lg p-3">
-                      <p className="text-slate-600 text-sm">Std Deviation</p>
-                      <p className="text-xl font-mono text-slate-900">{classicalResult.sample_std.toFixed(2)}</p>
+                      <p className="text-slate-600 text-xs sm:text-sm">Std Deviation</p>
+                      <p className="text-lg sm:text-xl font-mono text-slate-900">{classicalResult.sample_std.toFixed(2)}</p>
                     </div>
                   </div>
                 </motion.section>
@@ -488,58 +490,59 @@ export default function DashboardPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white border-l-4 border-violet-500 rounded-xl p-6 shadow-sm"
+                  className="bg-white border-l-4 border-violet-500 rounded-xl p-4 sm:p-6 shadow-sm"
                   aria-labelledby="quantum-results-heading"
                   aria-live="polite"
                 >
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3">
                     <h3 
                       id="quantum-results-heading"
-                      className="text-2xl font-bold text-slate-900 flex items-center gap-2"
+                      className="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2"
                     >
-                      <Zap className="w-6 h-6 text-violet-500" aria-hidden="true" />
-                      Quantum Amplitude Estimation
+                      <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-violet-500" aria-hidden="true" />
+                      <span className="hidden sm:inline">Quantum Amplitude Estimation</span>
+                      <span className="sm:hidden">Quantum QAE</span>
                     </h3>
-                    <div className="px-4 py-2 bg-violet-50 border border-violet-200 rounded-full">
-                      <span className="text-violet-600 font-mono text-sm">O(1/N)</span>
+                    <div className="px-3 sm:px-4 py-1.5 sm:py-2 bg-violet-50 border border-violet-200 rounded-full">
+                      <span className="text-violet-600 font-mono text-xs sm:text-sm">O(1/N)</span>
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-slate-50 rounded-lg p-4">
-                      <p className="text-slate-600 text-sm mb-1">Potential Future Exposure</p>
-                      <p className="text-3xl font-bold text-violet-600">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="bg-slate-50 rounded-lg p-3 sm:p-4">
+                      <p className="text-slate-600 text-xs sm:text-sm mb-1">Potential Future Exposure</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-violet-600">
                         ${quantumResult.pfe.toFixed(2)}
                       </p>
                     </div>
-                    <div className="bg-slate-50 rounded-lg p-4">
-                      <p className="text-slate-600 text-sm mb-1">Expected Exposure</p>
-                      <p className="text-3xl font-bold text-violet-600">
+                    <div className="bg-slate-50 rounded-lg p-3 sm:p-4">
+                      <p className="text-slate-600 text-xs sm:text-sm mb-1">Expected Exposure</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-violet-600">
                         ${quantumResult.expected_exposure?.toFixed(2) || 'N/A'}
                       </p>
                     </div>
-                    <div className="bg-slate-50 rounded-lg p-4">
-                      <p className="text-slate-600 text-sm mb-1 flex items-center gap-1">
-                        <Clock className="w-4 h-4" /> Runtime
+                    <div className="bg-slate-50 rounded-lg p-3 sm:p-4 sm:col-span-2 md:col-span-1">
+                      <p className="text-slate-600 text-xs sm:text-sm mb-1 flex items-center gap-1">
+                        <Clock className="w-3 h-3 sm:w-4 sm:h-4" /> Runtime
                       </p>
-                      <p className="text-3xl font-bold text-violet-600">
+                      <p className="text-2xl sm:text-3xl font-bold text-violet-600">
                         {quantumResult.runtime_ms.toFixed(1)}ms
                       </p>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="bg-slate-50 rounded-lg p-3">
-                      <p className="text-slate-600 text-sm">Qubits</p>
-                      <p className="text-xl font-mono text-slate-900">{quantumResult.num_qubits}</p>
+                  <div className="grid grid-cols-3 gap-3 sm:gap-4">
+                    <div className="bg-slate-50 rounded-lg p-2.5 sm:p-3">
+                      <p className="text-slate-600 text-xs sm:text-sm">Qubits</p>
+                      <p className="text-lg sm:text-xl font-mono text-slate-900">{quantumResult.num_qubits}</p>
                     </div>
-                    <div className="bg-slate-50 rounded-lg p-3">
-                      <p className="text-slate-600 text-sm">Bins</p>
-                      <p className="text-xl font-mono text-slate-900">{quantumResult.discretization_bins}</p>
+                    <div className="bg-slate-50 rounded-lg p-2.5 sm:p-3">
+                      <p className="text-slate-600 text-xs sm:text-sm">Bins</p>
+                      <p className="text-lg sm:text-xl font-mono text-slate-900">{quantumResult.discretization_bins}</p>
                     </div>
-                    <div className="bg-slate-50 rounded-lg p-3">
-                      <p className="text-slate-600 text-sm">AE Iterations</p>
-                      <p className="text-xl font-mono text-slate-900">{quantumResult.ae_iterations}</p>
+                    <div className="bg-slate-50 rounded-lg p-2.5 sm:p-3">
+                      <p className="text-slate-600 text-xs sm:text-sm">AE Iter</p>
+                      <p className="text-lg sm:text-xl font-mono text-slate-900">{quantumResult.ae_iterations}</p>
                     </div>
                   </div>
                 </motion.section>
@@ -554,7 +557,7 @@ export default function DashboardPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-gradient-to-br from-blue-50 to-violet-50 border-2 border-transparent rounded-xl p-6 shadow-sm relative overflow-hidden"
+                  className="bg-gradient-to-br from-blue-50 to-violet-50 border-2 border-transparent rounded-xl p-4 sm:p-6 shadow-sm relative overflow-hidden"
                   style={{
                     backgroundImage: 'linear-gradient(white, white), linear-gradient(to right, rgb(59, 130, 246), rgb(139, 92, 246))',
                     backgroundOrigin: 'border-box',
@@ -565,47 +568,48 @@ export default function DashboardPage() {
                 >
                   <h3 
                     id="comparison-heading"
-                    className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"
+                    className="text-xl sm:text-2xl font-bold text-slate-900 mb-4 sm:mb-6 flex items-center gap-2"
                   >
-                    <BarChart3 className="w-6 h-6 text-blue-600" aria-hidden="true" />
-                    Performance Comparison
+                    <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" aria-hidden="true" />
+                    <span className="hidden sm:inline">Performance Comparison</span>
+                    <span className="sm:hidden">Comparison</span>
                   </h3>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-white rounded-lg p-5 shadow-sm">
-                      <p className="text-slate-600 text-sm font-medium mb-2">PFE Difference</p>
-                      <p className="text-3xl font-bold text-slate-900 mb-1">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <div className="bg-white rounded-lg p-4 sm:p-5 shadow-sm">
+                      <p className="text-slate-600 text-xs sm:text-sm font-medium mb-2">PFE Difference</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
                         ${Math.abs(classicalResult.pfe - quantumResult.pfe).toFixed(2)}
                       </p>
-                      <p className="text-sm text-slate-500">
+                      <p className="text-xs sm:text-sm text-slate-500">
                         {((Math.abs(classicalResult.pfe - quantumResult.pfe) / classicalResult.pfe) * 100).toFixed(2)}% variance
                       </p>
                     </div>
 
-                    <div className="bg-white rounded-lg p-5 shadow-sm">
-                      <p className="text-slate-600 text-sm font-medium mb-2">Runtime Comparison</p>
-                      <p className="text-3xl font-bold text-slate-900 mb-1">
+                    <div className="bg-white rounded-lg p-4 sm:p-5 shadow-sm">
+                      <p className="text-slate-600 text-xs sm:text-sm font-medium mb-2">Runtime Comparison</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
                         {speedup}x
                       </p>
-                      <p className="text-sm text-slate-500">
+                      <p className="text-xs sm:text-sm text-slate-500">
                         {classicalResult.runtime_ms > quantumResult.runtime_ms ? 'Quantum faster' : 'Classical faster'}
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-6 grid md:grid-cols-2 gap-4">
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <p className="text-slate-600 text-sm font-medium mb-1">Classical Complexity</p>
-                      <p className="text-lg font-mono text-blue-600">O(1/√N)</p>
+                  <div className="mt-4 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4">
+                    <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
+                      <p className="text-slate-600 text-xs sm:text-sm font-medium mb-1">Classical Complexity</p>
+                      <p className="text-base sm:text-lg font-mono text-blue-600">O(1/√N)</p>
                     </div>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <p className="text-slate-600 text-sm font-medium mb-1">Quantum Complexity</p>
-                      <p className="text-lg font-mono text-violet-600">O(1/N)</p>
+                    <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
+                      <p className="text-slate-600 text-xs sm:text-sm font-medium mb-1">Quantum Complexity</p>
+                      <p className="text-base sm:text-lg font-mono text-violet-600">O(1/N)</p>
                     </div>
                   </div>
 
-                  <div className="mt-6 p-4 bg-white rounded-lg shadow-sm">
-                    <p className="text-center text-slate-700">
+                  <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-white rounded-lg shadow-sm">
+                    <p className="text-center text-slate-700 text-sm sm:text-base">
                       Quantum amplitude estimation provides{' '}
                       <span className="font-semibold text-blue-600">quadratic speedup</span>
                       {' '}for large-scale risk calculations
