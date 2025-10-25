@@ -38,7 +38,7 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1 w-full max-w-[280px] mx-auto"
+                className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 ease-out hover:-translate-y-1 w-full max-w-[280px] mx-auto"
               >
                 {/* Avatar - 80px */}
                 <div className="relative mb-3">

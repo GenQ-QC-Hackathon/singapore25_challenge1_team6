@@ -37,11 +37,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     // Base styles
     const baseStyles = 'inline-flex items-center justify-center gap-2 font-semibold rounded-lg transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
-    // Variant styles
+    // Variant styles with enhanced shadow transitions
     const variantStyles = {
-      primary: 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg hover:shadow-xl hover:brightness-110 focus-visible:ring-blue-500',
-      secondary: 'bg-white text-slate-900 border-2 border-slate-200 shadow-sm hover:border-slate-300 hover:shadow-md focus-visible:ring-slate-500',
-      ghost: 'bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-slate-500',
+      primary: 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg hover:shadow-xl hover:brightness-110 transition-all duration-200 ease-out focus-visible:ring-blue-500',
+      secondary: 'bg-white text-slate-900 border-2 border-slate-200 shadow-sm hover:border-slate-300 hover:shadow-md transition-all duration-200 ease-out focus-visible:ring-slate-500',
+      ghost: 'bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 ease-out focus-visible:ring-slate-500',
     };
 
     // Size styles

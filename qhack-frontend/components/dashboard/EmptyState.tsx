@@ -27,7 +27,7 @@ export default function EmptyState() {
       <div className="text-center max-w-md">
         {/* Animated Icon */}
         <motion.div
-          className="inline-flex items-center justify-center w-24 h-24 mb-6 rounded-full bg-white border-2 border-dashed border-slate-300"
+          className="inline-flex items-center justify-center w-24 h-24 mb-6 rounded-full bg-white border-2 border-dashed border-slate-300 shadow-sm"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ 
             scale: 1, 
