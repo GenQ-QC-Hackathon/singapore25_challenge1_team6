@@ -131,34 +131,36 @@ export default function DashboardPage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-black py-12 px-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
           className="text-center mb-12"
         >
-          <h1 className="text-5xl font-display font-black mb-4">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
               Quantum Risk Engine
             </span>
           </h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-slate-600 text-lg">
             Calculate PFE using Classical Monte Carlo vs Quantum Amplitude Estimation
           </p>
         </motion.div>
 
         {/* Main Grid */}
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6">
           {/* Left: Input Panel */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3 }}
             className="lg:col-span-1"
           >
-            <div className="bg-gray-900 border border-cyan-500/30 rounded-2xl p-6 shadow-2xl">
-              <h2 className="text-2xl font-display font-bold text-cyan-400 mb-6">
+            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
                 Portfolio Parameters
               </h2>
 
@@ -166,23 +168,23 @@ export default function DashboardPage() {
                 {/* Asset Weights */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Weight 1</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Weight 1</label>
                     <input
                       type="number"
                       step="0.1"
                       value={params.w1}
                       onChange={(e) => setParams({ ...params, w1: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-black border border-cyan-500/30 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
+                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Weight 2</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Weight 2</label>
                     <input
                       type="number"
                       step="0.1"
                       value={params.w2}
                       onChange={(e) => setParams({ ...params, w2: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-black border border-cyan-500/30 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
+                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -190,21 +192,21 @@ export default function DashboardPage() {
                 {/* Strike & Initial Price */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Strike Price</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Strike Price</label>
                     <input
                       type="number"
                       value={params.strike}
                       onChange={(e) => setParams({ ...params, strike: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-black border border-cyan-500/30 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
+                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Initial Price</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Initial Price</label>
                     <input
                       type="number"
                       value={params.s0}
                       onChange={(e) => setParams({ ...params, s0: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-black border border-cyan-500/30 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
+                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -212,30 +214,30 @@ export default function DashboardPage() {
                 {/* Volatility & Drift */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Volatility (σ)</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Volatility (σ)</label>
                     <input
                       type="number"
                       step="0.01"
                       value={params.sigma}
                       onChange={(e) => setParams({ ...params, sigma: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-black border border-cyan-500/30 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
+                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Drift (μ)</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Drift (μ)</label>
                     <input
                       type="number"
                       step="0.01"
                       value={params.mu}
                       onChange={(e) => setParams({ ...params, mu: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-black border border-cyan-500/30 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
+                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
 
                 {/* Confidence Level */}
                 <div>
-                  <label className="block text-sm text-gray-400 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     Confidence Level (α): {(params.alpha * 100).toFixed(0)}%
                   </label>
                   <input
@@ -245,13 +247,13 @@ export default function DashboardPage() {
                     step="0.01"
                     value={params.alpha}
                     onChange={(e) => setParams({ ...params, alpha: parseFloat(e.target.value) })}
-                    className="w-full"
+                    className="w-full accent-blue-500"
                   />
                 </div>
 
                 {/* Classical Samples */}
                 <div>
-                  <label className="block text-sm text-gray-400 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     MC Samples: {params.num_samples.toLocaleString()}
                   </label>
                   <input
@@ -261,13 +263,13 @@ export default function DashboardPage() {
                     step="1000"
                     value={params.num_samples}
                     onChange={(e) => setParams({ ...params, num_samples: parseInt(e.target.value) })}
-                    className="w-full"
+                    className="w-full accent-blue-500"
                   />
                 </div>
 
                 {/* Quantum Qubits */}
                 <div>
-                  <label className="block text-sm text-gray-400 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     Qubits: {params.num_qubits} (bins: {Math.pow(2, params.num_qubits)})
                   </label>
                   <input
@@ -277,49 +279,43 @@ export default function DashboardPage() {
                     step="1"
                     value={params.num_qubits}
                     onChange={(e) => setParams({ ...params, num_qubits: parseInt(e.target.value) })}
-                    className="w-full"
+                    className="w-full accent-violet-500"
                   />
                 </div>
               </div>
 
               {/* Action Buttons */}
               <div className="mt-8 space-y-3">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <button
                   onClick={runBoth}
                   disabled={loading.both}
-                  className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-bold text-white flex items-center justify-center gap-2 hover:from-cyan-400 hover:to-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-cyan-500/50"
+                  className="w-full py-4 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg font-semibold text-white flex items-center justify-center gap-2 hover:from-blue-700 hover:to-violet-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                 >
                   {loading.both ? (
                     <><Loader2 className="w-5 h-5 animate-spin" /> Running Both...</>
                   ) : (
                     <><Zap className="w-5 h-5" /> Run Comparison</>
                   )}
-                </motion.button>
+                </button>
 
                 <div className="grid grid-cols-2 gap-3">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                  <button
                     onClick={runClassical}
                     disabled={loading.classical}
-                    className="py-3 bg-cyan-900/50 border border-cyan-500/50 rounded-xl font-semibold text-cyan-300 flex items-center justify-center gap-2 hover:bg-cyan-900 transition-all disabled:opacity-50"
+                    className="py-3 bg-white border border-blue-300 rounded-lg font-medium text-blue-600 flex items-center justify-center gap-2 hover:bg-blue-50 transition-colors duration-200 disabled:opacity-50"
                   >
                     {loading.classical ? <Loader2 className="w-4 h-4 animate-spin" /> : <Activity className="w-4 h-4" />}
                     Classical
-                  </motion.button>
+                  </button>
 
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                  <button
                     onClick={runQuantum}
                     disabled={loading.quantum}
-                    className="py-3 bg-purple-900/50 border border-purple-500/50 rounded-xl font-semibold text-purple-300 flex items-center justify-center gap-2 hover:bg-purple-900 transition-all disabled:opacity-50"
+                    className="py-3 bg-white border border-violet-300 rounded-lg font-medium text-violet-600 flex items-center justify-center gap-2 hover:bg-violet-50 transition-colors duration-200 disabled:opacity-50"
                   >
                     {loading.quantum ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
                     Quantum
-                  </motion.button>
+                  </button>
                 </div>
               </div>
 
@@ -328,9 +324,10 @@ export default function DashboardPage() {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-4 p-4 bg-red-900/30 border border-red-500/50 rounded-lg"
+                  transition={{ duration: 0.2 }}
+                  className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg"
                 >
-                  <p className="text-red-300 text-sm">{error}</p>
+                  <p className="text-red-600 text-sm">{error}</p>
                 </motion.div>
               )}
             </div>
@@ -345,49 +342,50 @@ export default function DashboardPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="bg-gray-900 border border-cyan-500/30 rounded-2xl p-6 shadow-2xl"
+                  transition={{ duration: 0.3 }}
+                  className="bg-white border-l-4 border-blue-500 rounded-xl p-6 shadow-sm"
                 >
                   <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-2xl font-display font-bold text-cyan-400 flex items-center gap-2">
-                      <Activity className="w-6 h-6" />
+                    <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                      <Activity className="w-6 h-6 text-blue-500" />
                       Classical Monte Carlo
                     </h3>
-                    <div className="px-4 py-2 bg-cyan-500/20 border border-cyan-500/50 rounded-full">
-                      <span className="text-cyan-300 font-mono text-sm">O(1/√N)</span>
+                    <div className="px-4 py-2 bg-blue-50 border border-blue-200 rounded-full">
+                      <span className="text-blue-600 font-mono text-sm">O(1/√N)</span>
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-black/50 border border-cyan-500/30 rounded-xl p-4">
-                      <p className="text-gray-400 text-sm mb-1">Potential Future Exposure</p>
-                      <p className="text-3xl font-display font-bold text-cyan-400">
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1">Potential Future Exposure</p>
+                      <p className="text-3xl font-bold text-blue-600">
                         ${classicalResult.pfe.toFixed(2)}
                       </p>
                     </div>
-                    <div className="bg-black/50 border border-cyan-500/30 rounded-xl p-4">
-                      <p className="text-gray-400 text-sm mb-1">Expected Exposure</p>
-                      <p className="text-3xl font-display font-bold text-cyan-400">
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1">Expected Exposure</p>
+                      <p className="text-3xl font-bold text-blue-600">
                         ${classicalResult.expected_exposure.toFixed(2)}
                       </p>
                     </div>
-                    <div className="bg-black/50 border border-cyan-500/30 rounded-xl p-4">
-                      <p className="text-gray-400 text-sm mb-1 flex items-center gap-1">
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1 flex items-center gap-1">
                         <Clock className="w-4 h-4" /> Runtime
                       </p>
-                      <p className="text-3xl font-display font-bold text-cyan-400">
+                      <p className="text-3xl font-bold text-blue-600">
                         {classicalResult.runtime_ms.toFixed(1)}ms
                       </p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-black/30 rounded-lg p-3">
-                      <p className="text-gray-400 text-sm">Samples Used</p>
-                      <p className="text-xl font-mono text-cyan-300">{classicalResult.samples_used.toLocaleString()}</p>
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <p className="text-slate-600 text-sm">Samples Used</p>
+                      <p className="text-xl font-mono text-slate-900">{classicalResult.samples_used.toLocaleString()}</p>
                     </div>
-                    <div className="bg-black/30 rounded-lg p-3">
-                      <p className="text-gray-400 text-sm">Std Deviation</p>
-                      <p className="text-xl font-mono text-cyan-300">{classicalResult.sample_std.toFixed(2)}</p>
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <p className="text-slate-600 text-sm">Std Deviation</p>
+                      <p className="text-xl font-mono text-slate-900">{classicalResult.sample_std.toFixed(2)}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -401,53 +399,54 @@ export default function DashboardPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="bg-gray-900 border border-purple-500/30 rounded-2xl p-6 shadow-2xl shadow-purple-500/20"
+                  transition={{ duration: 0.3 }}
+                  className="bg-white border-l-4 border-violet-500 rounded-xl p-6 shadow-sm"
                 >
                   <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-2xl font-display font-bold text-purple-400 flex items-center gap-2">
-                      <Zap className="w-6 h-6" />
+                    <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                      <Zap className="w-6 h-6 text-violet-500" />
                       Quantum Amplitude Estimation
                     </h3>
-                    <div className="px-4 py-2 bg-purple-500/20 border border-purple-500/50 rounded-full">
-                      <span className="text-purple-300 font-mono text-sm">O(1/N)</span>
+                    <div className="px-4 py-2 bg-violet-50 border border-violet-200 rounded-full">
+                      <span className="text-violet-600 font-mono text-sm">O(1/N)</span>
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-black/50 border border-purple-500/30 rounded-xl p-4">
-                      <p className="text-gray-400 text-sm mb-1">Potential Future Exposure</p>
-                      <p className="text-3xl font-display font-bold text-purple-400">
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1">Potential Future Exposure</p>
+                      <p className="text-3xl font-bold text-violet-600">
                         ${quantumResult.pfe.toFixed(2)}
                       </p>
                     </div>
-                    <div className="bg-black/50 border border-purple-500/30 rounded-xl p-4">
-                      <p className="text-gray-400 text-sm mb-1">Expected Exposure</p>
-                      <p className="text-3xl font-display font-bold text-purple-400">
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1">Expected Exposure</p>
+                      <p className="text-3xl font-bold text-violet-600">
                         ${quantumResult.expected_exposure?.toFixed(2) || 'N/A'}
                       </p>
                     </div>
-                    <div className="bg-black/50 border border-purple-500/30 rounded-xl p-4">
-                      <p className="text-gray-400 text-sm mb-1 flex items-center gap-1">
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1 flex items-center gap-1">
                         <Clock className="w-4 h-4" /> Runtime
                       </p>
-                      <p className="text-3xl font-display font-bold text-purple-400">
+                      <p className="text-3xl font-bold text-violet-600">
                         {quantumResult.runtime_ms.toFixed(1)}ms
                       </p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-3 gap-4">
-                    <div className="bg-black/30 rounded-lg p-3">
-                      <p className="text-gray-400 text-sm">Qubits</p>
-                      <p className="text-xl font-mono text-purple-300">{quantumResult.num_qubits}</p>
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <p className="text-slate-600 text-sm">Qubits</p>
+                      <p className="text-xl font-mono text-slate-900">{quantumResult.num_qubits}</p>
                     </div>
-                    <div className="bg-black/30 rounded-lg p-3">
-                      <p className="text-gray-400 text-sm">Bins</p>
-                      <p className="text-xl font-mono text-purple-300">{quantumResult.discretization_bins}</p>
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <p className="text-slate-600 text-sm">Bins</p>
+                      <p className="text-xl font-mono text-slate-900">{quantumResult.discretization_bins}</p>
                     </div>
-                    <div className="bg-black/30 rounded-lg p-3">
-                      <p className="text-gray-400 text-sm">AE Iterations</p>
-                      <p className="text-xl font-mono text-purple-300">{quantumResult.ae_iterations}</p>
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <p className="text-slate-600 text-sm">AE Iterations</p>
+                      <p className="text-xl font-mono text-slate-900">{quantumResult.ae_iterations}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -461,34 +460,35 @@ export default function DashboardPage() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="bg-gradient-to-br from-cyan-900/30 to-purple-900/30 border border-pink-500/50 rounded-2xl p-6 shadow-2xl"
+                  transition={{ duration: 0.3 }}
+                  className="bg-gradient-to-br from-blue-50 to-violet-50 border border-slate-200 rounded-xl p-6 shadow-sm"
                 >
-                  <h3 className="text-2xl font-display font-bold text-transparent bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text mb-6 flex items-center gap-2">
-                    <BarChart3 className="w-6 h-6 text-pink-400" />
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent mb-6 flex items-center gap-2">
+                    <BarChart3 className="w-6 h-6 text-slate-700" />
                     Performance Comparison
                   </h3>
 
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-black/50 rounded-xl p-4 border border-cyan-500/30">
-                      <p className="text-gray-400 text-sm mb-2">PFE Difference</p>
-                      <p className="text-2xl font-bold text-cyan-400">
+                    <div className="bg-white rounded-lg p-4 border border-slate-200">
+                      <p className="text-slate-600 text-sm mb-2">PFE Difference</p>
+                      <p className="text-2xl font-bold text-slate-900">
                         {Math.abs(classicalResult.pfe - quantumResult.pfe).toFixed(2)} ({((Math.abs(classicalResult.pfe - quantumResult.pfe) / classicalResult.pfe) * 100).toFixed(1)}%)
                       </p>
                     </div>
 
-                    <div className="bg-black/50 rounded-xl p-4 border border-purple-500/30">
-                      <p className="text-gray-400 text-sm mb-2">Convergence Advantage</p>
-                      <p className="text-2xl font-bold text-purple-400">
+                    <div className="bg-white rounded-lg p-4 border border-slate-200">
+                      <p className="text-slate-600 text-sm mb-2">Convergence Advantage</p>
+                      <p className="text-lg font-semibold text-slate-900">
                         Quantum: O(1/N) vs Classical: O(1/√N)
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-6 p-4 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-xl border border-pink-500/50">
-                    <p className="text-center text-lg">
-                      <span className="text-gray-300">Quantum shows </span>
-                      <span className="text-pink-400 font-bold text-2xl">quadratic speedup</span>
-                      <span className="text-gray-300"> potential for large-scale calculations!</span>
+                  <div className="mt-6 p-4 bg-white rounded-lg border border-blue-200">
+                    <p className="text-center text-base">
+                      <span className="text-slate-700">Quantum shows </span>
+                      <span className="text-blue-600 font-bold text-lg">quadratic speedup</span>
+                      <span className="text-slate-700"> potential for large-scale calculations!</span>
                     </p>
                   </div>
                 </motion.div>

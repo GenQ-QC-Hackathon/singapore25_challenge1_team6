@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { Activity } from 'lucide-react';
 
 const navLinks = [
@@ -15,47 +14,22 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-neon-blue/30"
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-slate-200">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/">
-            <motion.div
-              className="flex items-center gap-3 cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="relative">
-                <Activity className="w-8 h-8 neon-text-blue" />
-                <motion.div
-                  className="absolute inset-0 blur-xl"
-                  animate={{
-                    opacity: [0.5, 1, 0.5],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <Activity className="w-8 h-8 text-neon-blue" />
-                </motion.div>
-              </div>
+            <div className="flex items-center gap-3 cursor-pointer transition-opacity duration-200 hover:opacity-80">
+              <Activity className="w-8 h-8 text-blue-600" />
               <div>
-                <h1 className="text-2xl font-display font-bold neon-text-blue tracking-wider">
+                <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
                   QHack
                 </h1>
-                <p className="text-xs text-neon-purple/70 font-mono">
+                <p className="text-xs text-slate-500 font-mono">
                   Quantum Risk Engine
                 </p>
               </div>
-            </motion.div>
+            </div>
           </Link>
 
           {/* Navigation Links */}
@@ -64,74 +38,36 @@ export default function Navbar() {
               const isActive = pathname === link.href;
               return (
                 <Link key={link.href} href={link.href}>
-                  <motion.div
-                    className="relative"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
+                  <div className="relative">
                     <span
                       className={`
-                        font-medium transition-colors duration-300
+                        font-medium transition-colors duration-200
                         ${isActive
-                          ? 'neon-text-blue'
-                          : 'text-gray-300 hover:text-neon-purple'
+                          ? 'text-blue-600'
+                          : 'text-slate-600 hover:text-blue-600'
                         }
                       `}
                     >
                       {link.label}
                     </span>
                     {isActive && (
-                      <motion.div
-                        layoutId="underline"
-                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-magenta"
-                        initial={false}
-                        transition={{
-                          type: "spring",
-                          stiffness: 500,
-                          damping: 30,
-                        }}
-                      />
+                      <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600" />
                     )}
-                  </motion.div>
+                  </div>
                 </Link>
               );
             })}
           </div>
 
           {/* Status Indicator */}
-          <motion.div
-            className="flex items-center gap-2 px-4 py-2 rounded-full neon-border-blue bg-black/50"
-            animate={{
-              boxShadow: [
-                '0 0 10px rgba(0, 240, 255, 0.3)',
-                '0 0 20px rgba(0, 240, 255, 0.6)',
-                '0 0 10px rgba(0, 240, 255, 0.3)',
-              ],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <motion.div
-              className="w-2 h-2 rounded-full bg-neon-blue"
-              animate={{
-                opacity: [1, 0.3, 1],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            <span className="text-sm font-mono text-neon-blue">
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-slate-50">
+            <div className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span className="text-sm font-mono text-slate-700">
               ONLINE
             </span>
-          </motion.div>
+          </div>
         </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 }
