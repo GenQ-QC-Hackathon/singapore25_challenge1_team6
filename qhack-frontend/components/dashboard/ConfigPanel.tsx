@@ -42,7 +42,7 @@ export default function ConfigPanel({
 
   return (
     <aside
-      className="w-full lg:w-1/4 lg:min-w-[320px] lg:max-w-[400px] bg-white border-r border-slate-200 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto"
+      className="w-full lg:w-1/4 lg:min-w-[320px] lg:max-w-[400px] bg-white border-r border-slate-200 shadow-sm lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto"
       aria-label="Configuration panel"
     >
       <div className="p-8">
@@ -281,9 +281,10 @@ export default function ConfigPanel({
                   <div>
                     <label
                       htmlFor="qubits"
-                      className="block text-sm font-medium text-slate-700 mb-3"
+                      className="flex items-center gap-2 text-sm font-medium text-slate-700 mb-2"
                     >
-                      Qubits: {params.num_qubits} (bins: {Math.pow(2, params.num_qubits)})
+                      <span>Qubits: {params.num_qubits} (bins: {Math.pow(2, params.num_qubits)})</span>
+                      <Tooltip content="Number of qubits for quantum circuit. More qubits = finer discretization (2^n bins) but exponentially more complex" />
                     </label>
                     <input
                       id="qubits"
@@ -293,7 +294,7 @@ export default function ConfigPanel({
                       step="1"
                       value={params.num_qubits}
                       onChange={(e) => updateParam('num_qubits', parseInt(e.target.value))}
-                      className="w-full h-3 accent-violet-500"
+                      className="w-full slider-violet"
                       aria-label={`Number of qubits: ${params.num_qubits}, bins: ${Math.pow(2, params.num_qubits)}`}
                       aria-valuemin={3}
                       aria-valuemax={8}
@@ -305,9 +306,10 @@ export default function ConfigPanel({
                   <div>
                     <label
                       htmlFor="ae-iterations"
-                      className="block text-sm font-medium text-slate-700 mb-3"
+                      className="flex items-center gap-2 text-sm font-medium text-slate-700 mb-2"
                     >
-                      AE Iterations: {params.ae_iterations}
+                      <span>AE Iterations: {params.ae_iterations}</span>
+                      <Tooltip content="Iterative Quantum Amplitude Estimation rounds. More iterations = higher precision but longer runtime" />
                     </label>
                     <input
                       id="ae-iterations"
@@ -317,7 +319,7 @@ export default function ConfigPanel({
                       step="1"
                       value={params.ae_iterations}
                       onChange={(e) => updateParam('ae_iterations', parseInt(e.target.value))}
-                      className="w-full h-3 accent-violet-500"
+                      className="w-full slider-violet"
                       aria-label={`Amplitude estimation iterations: ${params.ae_iterations}`}
                       aria-valuemin={3}
                       aria-valuemax={10}
@@ -331,12 +333,15 @@ export default function ConfigPanel({
         </section>
 
         {/* Primary Action Button */}
-        <button
+        <motion.button
           onClick={onRunSimulation}
           disabled={loading}
-          className="w-full h-14 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg font-semibold text-white text-base flex items-center justify-center gap-2 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg"
+          className="w-full h-14 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg font-semibold text-white text-base flex items-center justify-center gap-2 shadow-lg transition-shadow duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           aria-label="Run both classical and quantum simulations"
           aria-busy={loading}
+          whileHover={!loading ? { scale: 1.02, boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)' } : undefined}
+          whileTap={!loading ? { scale: 0.98 } : undefined}
+          transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
           {loading ? (
             <>
@@ -349,7 +354,7 @@ export default function ConfigPanel({
               Run Comparison
             </>
           )}
-        </button>
+        </motion.button>
 
         {/* Error Display */}
         {error && (

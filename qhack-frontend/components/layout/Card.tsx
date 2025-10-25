@@ -41,7 +41,7 @@ export interface CardProps {
   /**
    * Border accent color (left border)
    */
-  accentColor?: 'none' | 'blue' | 'violet' | 'cyan' | 'emerald';
+  accentColor?: 'none' | 'blue' | 'violet' | 'slate' | 'emerald';
   
   /**
    * Additional CSS classes
@@ -62,9 +62,9 @@ export interface CardProps {
 
 const variantClasses = {
   default: 'bg-white border border-slate-200 shadow-md',
-  bordered: 'bg-white border-2 border-slate-200',
-  elevated: 'bg-white shadow-lg',
-  flat: 'bg-slate-50 border border-slate-100',
+  bordered: 'bg-white border-2 border-slate-200 shadow-sm',
+  elevated: 'bg-white shadow-lg border border-slate-100',
+  flat: 'bg-slate-50 border border-slate-100 shadow-sm',
   gradient: 'bg-gradient-to-br from-white to-slate-50 border border-slate-200 shadow-md',
 };
 
@@ -76,18 +76,18 @@ const paddingClasses = {
 };
 
 const hoverClasses = {
-  default: 'transition-all duration-200 hover:shadow-xl hover:-translate-y-1',
-  bordered: 'transition-all duration-200 hover:border-slate-300 hover:-translate-y-1',
-  elevated: 'transition-all duration-200 hover:shadow-2xl hover:-translate-y-1',
-  flat: 'transition-all duration-200 hover:bg-slate-100 hover:-translate-y-1',
-  gradient: 'transition-all duration-200 hover:shadow-xl hover:-translate-y-1',
+  default: 'transition-all duration-200 ease-out hover:shadow-xl hover:-translate-y-1',
+  bordered: 'transition-all duration-200 ease-out hover:shadow-md hover:border-slate-300 hover:-translate-y-1',
+  elevated: 'transition-all duration-200 ease-out hover:shadow-2xl hover:-translate-y-1',
+  flat: 'transition-all duration-200 ease-out hover:shadow-md hover:bg-slate-100 hover:-translate-y-1',
+  gradient: 'transition-all duration-200 ease-out hover:shadow-xl hover:-translate-y-1',
 };
 
 const accentColorClasses = {
   none: '',
   blue: 'border-l-4 border-l-blue-500',
   violet: 'border-l-4 border-l-violet-500',
-  cyan: 'border-l-4 border-l-cyan-500',
+  slate: 'border-l-4 border-l-slate-400',
   emerald: 'border-l-4 border-l-emerald-500',
 };
 
