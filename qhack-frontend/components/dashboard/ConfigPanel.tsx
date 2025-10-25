@@ -162,9 +162,10 @@ export default function ConfigPanel({
             <div>
               <label
                 htmlFor="confidence"
-                className="block text-sm font-medium text-slate-700 mb-3"
+                className="flex items-center gap-2 text-sm font-medium text-slate-700 mb-2"
               >
-                Confidence Level (α): {(params.alpha * 100).toFixed(0)}%
+                <span>Confidence Level (α): {(params.alpha * 100).toFixed(0)}%</span>
+                <Tooltip content="Statistical confidence level for risk calculations (e.g., 95% means 95% confidence)" />
               </label>
               <input
                 id="confidence"
@@ -174,7 +175,7 @@ export default function ConfigPanel({
                 step="0.01"
                 value={params.alpha}
                 onChange={(e) => updateParam('alpha', parseFloat(e.target.value))}
-                className="w-full h-3 accent-blue-500"
+                className="w-full slider-blue"
                 aria-label={`Confidence level: ${(params.alpha * 100).toFixed(0)} percent`}
                 aria-valuemin={90}
                 aria-valuemax={99}
@@ -215,9 +216,10 @@ export default function ConfigPanel({
                   <div>
                     <label
                       htmlFor="drift"
-                      className="block text-sm font-medium text-slate-700 mb-2"
+                      className="flex items-center gap-2 text-sm font-medium text-slate-700 mb-2"
                     >
-                      Drift (μ)
+                      <span>Drift (μ)</span>
+                      <Tooltip content="Expected return rate of the asset, representing the trend direction" />
                     </label>
                     <input
                       id="drift"
@@ -234,9 +236,10 @@ export default function ConfigPanel({
                   <div>
                     <label
                       htmlFor="tau"
-                      className="block text-sm font-medium text-slate-700 mb-2"
+                      className="flex items-center gap-2 text-sm font-medium text-slate-700 mb-2"
                     >
-                      Time to Maturity (τ)
+                      <span>Time to Maturity (τ)</span>
+                      <Tooltip content="Time remaining until option expiration, measured in years" />
                     </label>
                     <input
                       id="tau"
@@ -253,9 +256,10 @@ export default function ConfigPanel({
                   <div>
                     <label
                       htmlFor="mc-samples"
-                      className="block text-sm font-medium text-slate-700 mb-3"
+                      className="flex items-center gap-2 text-sm font-medium text-slate-700 mb-2"
                     >
-                      MC Samples: {params.num_samples.toLocaleString()}
+                      <span>MC Samples: {params.num_samples.toLocaleString()}</span>
+                      <Tooltip content="Number of random simulations for classical Monte Carlo method. Higher = more accurate but slower" />
                     </label>
                     <input
                       id="mc-samples"
@@ -265,7 +269,7 @@ export default function ConfigPanel({
                       step="1000"
                       value={params.num_samples}
                       onChange={(e) => updateParam('num_samples', parseInt(e.target.value))}
-                      className="w-full h-3 accent-blue-500"
+                      className="w-full slider-blue"
                       aria-label={`Monte Carlo samples: ${params.num_samples.toLocaleString()}`}
                       aria-valuemin={1000}
                       aria-valuemax={100000}
