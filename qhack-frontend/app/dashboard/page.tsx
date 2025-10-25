@@ -290,7 +290,7 @@ export default function DashboardPage() {
                 <div>
                   <label 
                     htmlFor="confidence"
-                    className="block text-sm font-medium text-slate-700 mb-2"
+                    className="block text-sm font-medium text-slate-700 mb-2 sm:mb-3"
                   >
                     Confidence Level (α): {(params.alpha * 100).toFixed(0)}%
                   </label>
@@ -302,7 +302,7 @@ export default function DashboardPage() {
                     step="0.01"
                     value={params.alpha}
                     onChange={(e) => setParams({ ...params, alpha: parseFloat(e.target.value) })}
-                    className="w-full accent-blue-500"
+                    className="w-full h-2 accent-blue-500 touch-manipulation"
                     aria-label={`Confidence level: ${(params.alpha * 100).toFixed(0)} percent`}
                     aria-valuemin={90}
                     aria-valuemax={99}
@@ -314,7 +314,7 @@ export default function DashboardPage() {
                 <div>
                   <label 
                     htmlFor="mc-samples"
-                    className="block text-sm font-medium text-slate-700 mb-2"
+                    className="block text-sm font-medium text-slate-700 mb-2 sm:mb-3"
                   >
                     MC Samples: {params.num_samples.toLocaleString()}
                   </label>
@@ -326,7 +326,7 @@ export default function DashboardPage() {
                     step="1000"
                     value={params.num_samples}
                     onChange={(e) => setParams({ ...params, num_samples: parseInt(e.target.value) })}
-                    className="w-full accent-blue-500"
+                    className="w-full h-2 accent-blue-500 touch-manipulation"
                     aria-label={`Monte Carlo samples: ${params.num_samples.toLocaleString()}`}
                     aria-valuemin={1000}
                     aria-valuemax={100000}
@@ -338,7 +338,7 @@ export default function DashboardPage() {
                 <div>
                   <label 
                     htmlFor="qubits"
-                    className="block text-sm font-medium text-slate-700 mb-2"
+                    className="block text-sm font-medium text-slate-700 mb-2 sm:mb-3"
                   >
                     Qubits: {params.num_qubits} (bins: {Math.pow(2, params.num_qubits)})
                   </label>
@@ -350,7 +350,7 @@ export default function DashboardPage() {
                     step="1"
                     value={params.num_qubits}
                     onChange={(e) => setParams({ ...params, num_qubits: parseInt(e.target.value) })}
-                    className="w-full accent-violet-500"
+                    className="w-full h-2 accent-violet-500 touch-manipulation"
                     aria-label={`Number of qubits: ${params.num_qubits}, bins: ${Math.pow(2, params.num_qubits)}`}
                     aria-valuemin={3}
                     aria-valuemax={8}
