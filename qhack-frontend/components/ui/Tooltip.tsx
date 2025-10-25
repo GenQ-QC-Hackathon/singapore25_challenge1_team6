@@ -47,7 +47,7 @@ export default function Tooltip({
       >
         {children || (
           showIcon && (
-            <HelpCircle className="w-4 h-4 text-slate-400 hover:text-slate-600 transition-colors" />
+            <HelpCircle className="w-4 h-4 text-slate-400 hover:text-slate-600 hover:scale-110 transition-all duration-200" />
           )
         )}
       </div>
@@ -63,7 +63,7 @@ export default function Tooltip({
             role="tooltip"
           >
             <div className="relative">
-              <div className="bg-slate-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs shadow-lg">
+              <div className="bg-slate-900/95 backdrop-blur-md text-white text-xs rounded-lg px-3 py-2 max-w-xs shadow-lg border border-slate-700/50">
                 {content}
               </div>
               <div

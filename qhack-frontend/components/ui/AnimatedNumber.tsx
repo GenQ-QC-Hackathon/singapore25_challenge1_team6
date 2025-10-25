@@ -33,8 +33,8 @@ const AnimatedNumber = React.forwardRef<HTMLSpanElement, AnimatedNumberProps>(
     ref
   ) => {
     const [displayValue, setDisplayValue] = useState(animateOnMount ? 0 : value);
-    const animationFrameRef = useRef<number>();
-    const startTimeRef = useRef<number>();
+    const animationFrameRef = useRef<number | undefined>(undefined);
+    const startTimeRef = useRef<number | undefined>(undefined);
     const startValueRef = useRef<number>(displayValue);
 
     // Easing function (easeOut)
