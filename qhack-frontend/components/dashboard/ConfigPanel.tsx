@@ -123,9 +123,10 @@ export default function ConfigPanel({
             <div>
               <label
                 htmlFor="initial-price"
-                className="block text-sm font-medium text-slate-700 mb-2"
+                className="flex items-center gap-2 text-sm font-medium text-slate-700 mb-2"
               >
-                Initial Price
+                <span>Initial Price</span>
+                <Tooltip content="The current market price of the underlying asset (S₀)" />
               </label>
               <input
                 id="initial-price"
@@ -141,9 +142,10 @@ export default function ConfigPanel({
             <div>
               <label
                 htmlFor="volatility"
-                className="block text-sm font-medium text-slate-700 mb-2"
+                className="flex items-center gap-2 text-sm font-medium text-slate-700 mb-2"
               >
-                Volatility (σ)
+                <span>Volatility (σ)</span>
+                <Tooltip content="Standard deviation of asset returns, measuring price fluctuation intensity" />
               </label>
               <input
                 id="volatility"
