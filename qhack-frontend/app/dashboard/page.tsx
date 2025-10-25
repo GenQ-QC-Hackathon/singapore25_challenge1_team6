@@ -97,21 +97,214 @@ export default function DashboardPage() {
   const hasBothResults = classicalResult && quantumResult;
 
   return (
-    <main className="min-h-screen bg-slate-50">
-      {/* Desktop & Tablet: Flex Layout */}
-      <div className="flex h-screen overflow-hidden">
-        {/* Config Sidebar - Desktop & Tablet */}
-        <div className="hidden md:block md:w-1/3 lg:w-1/4 md:min-w-[320px] lg:max-w-[400px]">
-          <Suspense fallback={<ComponentLoader />}>
-            <ConfigPanel
-              params={params}
-              onParamsChange={setParams}
-              onRunSimulation={runBothSimulations}
-              loading={loading}
-              error={error}
-            />
-          </Suspense>
-        </div>
+    <main className="h-[90vh] bg-gradient-to-br from-slate-50 to-blue-50 pt-24 pb-20 px-4 sm:px-6">
+      <div className="container mx-auto max-w-7xl">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="text-center mb-12"
+          style={{marginTop:"60px"}}
+        >
+          <h1
+            id="dashboard-heading"
+            className="text-4xl md:text-5xl font-bold mb-4"
+            style={{paddingTop: "30px", paddingBottom: "30px", paddingLeft: "600px"}}
+        
+          >
+            <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent"
+            >
+              Quantum Risk Engine
+            </span>
+          </h1>
+          <p className="text-slate-600 text-lg" style={{paddingTop: "30px", paddingBottom: "30px", paddingLeft: "600px"}}>
+            Calculate PFE using Classical Monte Carlo vs Quantum Amplitude Estimation
+          </p>
+        </motion.div>
+
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left: Input Panel */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:col-span-3 flex justify-center"
+            style={{marginLeft: "600px", marginTop: "60px"}}
+          >
+            <section
+              className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm w-full max-w-md"
+              aria-labelledby="portfolio-params-heading"
+              style={{padding: "30px"}}
+            >
+              <h2
+                id="portfolio-params-heading"
+                className="text-2xl font-bold text-slate-900 mb-6 text-center"
+              >
+                Portfolio Parameters
+              </h2>
+
+              <div className="space-y-5">
+                {/* Asset Weights */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="weight1"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
+                    >
+                      Weight 1
+                    </label>
+                    <input
+                      id="weight1"
+                      type="number"
+                      step="0.1"
+                      value={params.w1}
+                      onChange={(e) => setParams({ ...params, w1: parseFloat(e.target.value) })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
+                      aria-label="Portfolio weight for asset 1"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="weight2"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
+                    >
+                      Weight 2
+                    </label>
+                    <input
+                      id="weight2"
+                      type="number"
+                      step="0.1"
+                      value={params.w2}
+                      onChange={(e) => setParams({ ...params, w2: parseFloat(e.target.value) })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
+                      aria-label="Portfolio weight for asset 2"
+                    />
+                  </div>
+                </div>
+
+                {/* Strike & Initial Price */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="strike"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
+                    >
+                      Strike Price
+                    </label>
+                    <input
+                      id="strike"
+                      type="number"
+                      value={params.strike}
+                      onChange={(e) => setParams({ ...params, strike: parseFloat(e.target.value) })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
+                      aria-label="Option strike price"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="initial-price"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
+                    >
+                      Initial Price
+                    </label>
+                    <input
+                      id="initial-price"
+                      type="number"
+                      value={params.s0}
+                      onChange={(e) => setParams({ ...params, s0: parseFloat(e.target.value) })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
+                      aria-label="Initial asset price"
+                    />
+                  </div>
+                </div>
+
+                {/* Volatility & Drift */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="volatility"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
+                    >
+                      Volatility (σ)
+                    </label>
+                    <input
+                      id="volatility"
+                      type="number"
+                      step="0.01"
+                      value={params.sigma}
+                      onChange={(e) => setParams({ ...params, sigma: parseFloat(e.target.value) })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
+                      aria-label="Market volatility sigma"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="drift"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
+                    >
+                      Drift (μ)
+                    </label>
+                    <input
+                      id="drift"
+                      type="number"
+                      step="0.01"
+                      value={params.mu}
+                      onChange={(e) => setParams({ ...params, mu: parseFloat(e.target.value) })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
+                      aria-label="Market drift mu"
+                    />
+                  </div>
+                </div>
+
+                {/* Confidence Level */}
+                <div>
+                  <label
+                    htmlFor="confidence"
+                    className="block text-sm font-medium text-slate-700 mb-3"
+                  >
+                    Confidence Level (α): {(params.alpha * 100).toFixed(0)}%
+                  </label>
+                  <input
+                    id="confidence"
+                    type="range"
+                    min="0.90"
+                    max="0.99"
+                    step="0.01"
+                    value={params.alpha}
+                    onChange={(e) => setParams({ ...params, alpha: parseFloat(e.target.value) })}
+                    className="w-full h-3 accent-blue-500 touch-manipulation"
+                    aria-label={`Confidence level: ${(params.alpha * 100).toFixed(0)} percent`}
+                    aria-valuemin={90}
+                    aria-valuemax={99}
+                    aria-valuenow={params.alpha * 100}
+                  />
+                </div>
+
+                {/* Classical Samples */}
+                <div>
+                  <label
+                    htmlFor="mc-samples"
+                    className="block text-sm font-medium text-slate-700 mb-3"
+                  >
+                    MC Samples: {params.num_samples.toLocaleString()}
+                  </label>
+                  <input
+                    id="mc-samples"
+                    type="range"
+                    min="1000"
+                    max="100000"
+                    step="1000"
+                    value={params.num_samples}
+                    onChange={(e) => setParams({ ...params, num_samples: parseInt(e.target.value) })}
+                    className="w-full h-3 accent-blue-500 touch-manipulation"
+                    aria-label={`Monte Carlo samples: ${params.num_samples.toLocaleString()}`}
+                    aria-valuemin={1000}
+                    aria-valuemax={100000}
+                    aria-valuenow={params.num_samples}
+                  />
+                </div>
 
         {/* Results Area - Desktop & Tablet */}
         <div className="hidden md:block md:w-2/3 lg:w-3/4 overflow-y-auto">
@@ -148,15 +341,20 @@ export default function DashboardPage() {
                   </AnimatePresence>
                 </div>
 
-                {/* Comparison Panel */}
-                <AnimatePresence>
-                  {hasBothResults && (
-                    <Suspense fallback={<ComponentLoader />}>
-                      <ComparisonView
-                        classicalResult={classicalResult}
-                        quantumResult={quantumResult}
-                      />
-                    </Suspense>
+              {/* Action Buttons */}
+              <div className="mt-8 space-y-3" style={{marginTop: "20px"}}>
+                <button
+                  onClick={runBoth}
+                  disabled={loading.both}
+                  className="w-full py-4 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg font-semibold text-white text-base flex items-center justify-center gap-2 hover:from-blue-700 hover:to-violet-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm touch-manipulation active:scale-95"
+                  aria-label="Run both classical and quantum simulations"
+                  aria-busy={loading.both}
+                  style={{padding: "10px", marginBottom: "30px"}}
+                >
+                  {loading.both ? (
+                    <><Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" /> Running Both...</>
+                  ) : (
+                    <><Zap className="w-5 h-5" aria-hidden="true" /> Run Comparison</>
                   )}
                 </AnimatePresence>
               </>
@@ -165,25 +363,18 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Mobile Layout */}
-      <div className="md:hidden min-h-screen flex flex-col">
-        {/* Mobile Header */}
-        <div className="glass border-b-0 px-4 py-4 flex items-center justify-between sticky top-0 z-20 shadow-sm">
-          <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-            Quantum Risk Engine
-          </h1>
-          <button
-            onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
-            className="p-2 rounded-lg hover:bg-slate-100 active:bg-slate-200 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2"
-            aria-label={isMobileSidebarOpen ? 'Close configuration' : 'Open configuration'}
-          >
-            {isMobileSidebarOpen ? (
-              <X className="w-6 h-6 text-slate-700 transition-transform duration-200" />
-            ) : (
-              <Menu className="w-6 h-6 text-slate-700 transition-transform duration-200" />
-            )}
-          </button>
-        </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={runClassical}
+                    disabled={loading.classical}
+                    className="py-3.5 bg-white border border-blue-300 rounded-lg font-medium text-blue-600 text-base flex items-center justify-center gap-2 hover:bg-blue-50 transition-colors duration-200 disabled:opacity-50 touch-manipulation active:scale-95"
+                    aria-label="Run classical Monte Carlo simulation"
+                    aria-busy={loading.classical}
+                    style={{padding: "10px"}}
+                  >
+                    {loading.classical ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Activity className="w-4 h-4" aria-hidden="true" />}
+                    Classical
+                  </button>
 
         {/* Mobile Results Area */}
         <div className="flex-1 overflow-y-auto p-4">
