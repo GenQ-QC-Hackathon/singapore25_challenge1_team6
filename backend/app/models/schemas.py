@@ -18,6 +18,7 @@ class ClassicalMCRequest(BaseModel):
     mu: float = Field(default=0.05, description="Drift rate")
     sigma: float = Field(default=0.2, description="Volatility", gt=0)
     tau: float = Field(default=1.0, description="Time to maturity (years)", gt=0)
+    correlation: float = Field(default=0.0, description="Asset correlation", ge=-1, le=1)
 
     # Simulation parameters
     num_samples: int = Field(default=10000, description="Number of MC samples", ge=100)
@@ -43,6 +44,7 @@ class QuantumRequest(BaseModel):
     mu: float = Field(default=0.05, description="Drift rate")
     sigma: float = Field(default=0.2, description="Volatility", gt=0)
     tau: float = Field(default=1.0, description="Time to maturity (years)", gt=0)
+    correlation: float = Field(default=0.0, description="Asset correlation", ge=-1, le=1)
 
     # Quantum parameters
     num_qubits: int = Field(default=5, description="Number of qubits for discretization", ge=3, le=10)

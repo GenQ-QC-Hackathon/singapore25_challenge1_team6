@@ -131,7 +131,7 @@ export default function DashboardPage() {
     : null;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-20 px-4 sm:px-6">
+    <main className="h-[90vh] bg-gradient-to-br from-slate-50 to-blue-50 pt-24 pb-20 px-4 sm:px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <motion.div
@@ -139,16 +139,20 @@ export default function DashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
           className="text-center mb-12"
+          style={{marginTop:"60px"}}
         >
           <h1
             id="dashboard-heading"
             className="text-4xl md:text-5xl font-bold mb-4"
+            style={{paddingTop: "30px", paddingBottom: "30px", paddingLeft: "600px"}}
+        
           >
-            <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent"
+            >
               Quantum Risk Engine
             </span>
           </h1>
-          <p className="text-slate-600 text-lg">
+          <p className="text-slate-600 text-lg" style={{paddingTop: "30px", paddingBottom: "30px", paddingLeft: "600px"}}>
             Calculate PFE using Classical Monte Carlo vs Quantum Amplitude Estimation
           </p>
         </motion.div>
@@ -160,15 +164,17 @@ export default function DashboardPage() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:col-span-1"
+            className="lg:col-span-3 flex justify-center"
+            style={{marginLeft: "600px", marginTop: "60px"}}
           >
             <section
-              className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm"
+              className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm w-full max-w-md"
               aria-labelledby="portfolio-params-heading"
+              style={{padding: "30px"}}
             >
               <h2
                 id="portfolio-params-heading"
-                className="text-2xl font-bold text-slate-900 mb-6"
+                className="text-2xl font-bold text-slate-900 mb-6 text-center"
               >
                 Portfolio Parameters
               </h2>
@@ -360,13 +366,14 @@ export default function DashboardPage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-8 space-y-3">
+              <div className="mt-8 space-y-3" style={{marginTop: "20px"}}>
                 <button
                   onClick={runBoth}
                   disabled={loading.both}
                   className="w-full py-4 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg font-semibold text-white text-base flex items-center justify-center gap-2 hover:from-blue-700 hover:to-violet-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm touch-manipulation active:scale-95"
                   aria-label="Run both classical and quantum simulations"
                   aria-busy={loading.both}
+                  style={{padding: "10px", marginBottom: "30px"}}
                 >
                   {loading.both ? (
                     <><Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" /> Running Both...</>
@@ -382,6 +389,7 @@ export default function DashboardPage() {
                     className="py-3.5 bg-white border border-blue-300 rounded-lg font-medium text-blue-600 text-base flex items-center justify-center gap-2 hover:bg-blue-50 transition-colors duration-200 disabled:opacity-50 touch-manipulation active:scale-95"
                     aria-label="Run classical Monte Carlo simulation"
                     aria-busy={loading.classical}
+                    style={{padding: "10px"}}
                   >
                     {loading.classical ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Activity className="w-4 h-4" aria-hidden="true" />}
                     Classical
