@@ -19,7 +19,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-[1.2]"
           >
             <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
               Quantum Risk Engine
@@ -31,7 +31,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xl text-slate-600 mb-12 max-w-[600px] mx-auto leading-relaxed"
+            className="text-xl text-slate-600 mb-12 max-w-[600px] mx-auto leading-[1.5]"
           >
             Accelerate counterparty credit risk calculations with quantum amplitude estimation
           </motion.p>
@@ -68,43 +68,55 @@ export default function Home() {
           aria-label="Key features"
         >
           {/* Feature 1: Quantum Speedup */}
-          <article className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-all duration-200 hover:-translate-y-2 max-w-[360px] mx-auto w-full">
-            <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mb-4">
-              <Zap className="w-6 h-6 text-white" aria-hidden="true" />
+          <motion.article 
+            whileHover={{ y: -8, scale: 1.01 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-shadow duration-200 max-w-[360px] mx-auto w-full cursor-default border border-slate-200"
+          >
+            <div className="w-12 h-12 rounded-full bg-blue-50 border-2 border-blue-500 flex items-center justify-center mb-4 transition-transform duration-200">
+              <Zap className="w-6 h-6 text-blue-600" aria-hidden="true" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">
+            <h3 className="text-xl font-bold text-slate-900 mb-2 leading-[1.2]">
               Quantum Speedup
             </h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-[1.5]">
               Quadratic advantage with Quantum Amplitude Estimation
             </p>
-          </article>
+          </motion.article>
 
           {/* Feature 2: Real-Time Analytics */}
-          <article className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-all duration-200 hover:-translate-y-2 max-w-[360px] mx-auto w-full">
-            <div className="w-12 h-12 rounded-full bg-violet-500 flex items-center justify-center mb-4">
-              <TrendingUp className="w-6 h-6 text-white" aria-hidden="true" />
+          <motion.article 
+            whileHover={{ y: -8, scale: 1.01 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-shadow duration-200 max-w-[360px] mx-auto w-full cursor-default border border-slate-200"
+          >
+            <div className="w-12 h-12 rounded-full bg-violet-50 border-2 border-violet-500 flex items-center justify-center mb-4 transition-transform duration-200">
+              <TrendingUp className="w-6 h-6 text-violet-600" aria-hidden="true" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">
+            <h3 className="text-xl font-bold text-slate-900 mb-2 leading-[1.2]">
               Real-Time Analytics
             </h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-[1.5]">
               Visualize PFE and CVA calculations instantly
             </p>
-          </article>
+          </motion.article>
 
           {/* Feature 3: Risk Mitigation */}
-          <article className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-all duration-200 hover:-translate-y-2 max-w-[360px] mx-auto w-full">
-            <div className="w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center mb-4">
-              <Shield className="w-6 h-6 text-white" aria-hidden="true" />
+          <motion.article 
+            whileHover={{ y: -8, scale: 1.01 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 transition-shadow duration-200 max-w-[360px] mx-auto w-full cursor-default border border-slate-200"
+          >
+            <div className="w-12 h-12 rounded-full bg-slate-50 border-2 border-slate-400 flex items-center justify-center mb-4 transition-transform duration-200">
+              <Shield className="w-6 h-6 text-slate-700" aria-hidden="true" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">
+            <h3 className="text-xl font-bold text-slate-900 mb-2 leading-[1.2]">
               Risk Mitigation
             </h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-[1.5]">
               Advanced portfolio risk analysis for financial stability
             </p>
-          </article>
+          </motion.article>
         </motion.div>
       </section>
     </div>
