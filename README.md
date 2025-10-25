@@ -1,4 +1,4 @@
-# QHack | Quantum Risk Engine
+# 🚀 QHack | Quantum Risk Engine
 
 > **Quantum-Enhanced PFE Calculation for Counterparty Credit Risk**
 
@@ -37,7 +37,7 @@
       <a href="https://github.com/jonathanwong03">
         <img src="https://github.com/jonathanwong03.png" width="80" alt="jonathanwong03"/><br/>
         <sub><b>jonathanwong03</b></sub><br/>
-        <sub>jonathan</sub>
+        <sub>Jonathan</sub>
       </a>
     </td>
     <td align="center">
