@@ -46,6 +46,9 @@ export const durations = {
 
 /**
  * Page transition animations
+ * - Fade-in with 20px y-offset for page entries
+ * - 300ms duration with easeOut easing
+ * - Exit animations for smooth page changes
  */
 export const pageTransition = {
   initial: { 
@@ -56,7 +59,7 @@ export const pageTransition = {
     opacity: 1, 
     y: 0,
     transition: {
-      duration: durations.slow / 1000,
+      duration: 0.3, // 300ms as per requirements
       ease: [0.16, 1, 0.3, 1], // easeOut
     }
   },
@@ -64,7 +67,7 @@ export const pageTransition = {
     opacity: 0, 
     y: -20,
     transition: {
-      duration: durations.normal / 1000,
+      duration: 0.2, // Faster exit for snappier feel
       ease: [0.7, 0, 0.84, 0], // easeIn
     }
   },

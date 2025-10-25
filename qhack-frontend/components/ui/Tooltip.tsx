@@ -47,7 +47,7 @@ export default function Tooltip({
       >
         {children || (
           showIcon && (
-            <HelpCircle className="w-4 h-4 text-slate-400 hover:text-slate-600 transition-colors" />
+            <HelpCircle className="w-4 h-4 text-slate-400 hover:text-slate-600 hover:scale-110 transition-all duration-200" />
           )
         )}
       </div>

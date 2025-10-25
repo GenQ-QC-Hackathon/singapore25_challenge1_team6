@@ -58,30 +58,34 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${widthStyles} ${className}`;
 
     return (
-      <motion.button
-        ref={ref}
-        className={combinedClassName}
-        disabled={isDisabled}
+      <motion.div
         initial="rest"
         whileHover={!isDisabled ? "hover" : undefined}
         whileTap={!isDisabled ? "press" : undefined}
         variants={buttonPress}
-        aria-busy={loading}
-        aria-disabled={isDisabled}
-        {...props}
+        style={{ display: 'inline-block', width: fullWidth ? '100%' : 'auto' }}
       >
-        {loading ? (
-          <>
-            <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
-            <span>Loading...</span>
-          </>
-        ) : (
-          <>
-            {icon && <span aria-hidden="true">{icon}</span>}
-            {children}
-          </>
-        )}
-      </motion.button>
+        <button
+          ref={ref}
+          className={combinedClassName}
+          disabled={isDisabled}
+          aria-busy={loading}
+          aria-disabled={isDisabled}
+          {...props}
+        >
+          {loading ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
+              <span>Loading...</span>
+            </>
+          ) : (
+            <>
+              {icon && <span aria-hidden="true">{icon}</span>}
+              {children}
+            </>
+          )}
+        </button>
+      </motion.div>
     );
   }
 );
