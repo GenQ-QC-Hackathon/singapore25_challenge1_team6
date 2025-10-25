@@ -10,6 +10,47 @@
 
 ---
 
+<table align="center">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/SaaiAravindhRaja">
+        <img src="https://github.com/SaaiAravindhRaja.png" width="80" alt="SaaiAravindhRaja"/><br/>
+        <sub><b>SaaiAravindhRaja</b></sub><br/>
+        <sub>Saai</sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/wonnom">
+        <img src="https://github.com/wonnom.png" width="80" alt="wonnom"/><br/>
+        <sub><b>wonnom</b></sub><br/>
+        <sub>Wee Siang</sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/tiewIE">
+        <img src="https://github.com/tiewIE.png" width="80" alt="tiewIE"/><br/>
+        <sub><b>tiewIE</b></sub><br/>
+        <sub>Ethan</sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jonathanwong03">
+        <img src="https://github.com/jonathanwong03.png" width="80" alt="jonathanwong03"/><br/>
+        <sub><b>jonathanwong03</b></sub><br/>
+        <sub>jonathan</sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Onyxxx17">
+        <img src="https://github.com/Onyxxx17.png" width="80" alt="Onyxxx17"/><br/>
+        <sub><b>Onyxxx17</b></sub><br/>
+        <sub>Aung</sub>
+      </a>
+    </td>
+  </tr>
+</table>
+
+
 ## 🎯 Project Overview
 
 QHack demonstrates how **Iterative Quantum Amplitude Estimation (I-QAE)** can accelerate **Potential Future Exposure (PFE)** calculations for derivative portfolios, achieving **quadratic speedup** over classical Monte Carlo methods.
