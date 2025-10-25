@@ -4,6 +4,14 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Zap, TrendingUp, Shield } from 'lucide-react';
 import Link from 'next/link';
 
+// Preload dashboard page for faster navigation
+if (typeof window !== 'undefined') {
+  const link = document.createElement('link');
+  link.rel = 'prefetch';
+  link.href = '/dashboard';
+  document.head.appendChild(link);
+}
+
 export default function Home() {
   return (
     <div className="min-h-screen">
