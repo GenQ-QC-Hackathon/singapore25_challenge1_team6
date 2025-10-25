@@ -131,30 +131,30 @@ export default function DashboardPage() {
     : null;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-6">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-16 sm:py-20 md:py-24 px-4 sm:px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
           <h1 
             id="dashboard-heading"
-            className="text-4xl md:text-5xl font-bold mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2"
           >
             <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
               Quantum Risk Engine
             </span>
           </h1>
-          <p className="text-slate-600 text-lg">
+          <p className="text-slate-600 text-base sm:text-lg px-4">
             Calculate PFE using Classical Monte Carlo vs Quantum Amplitude Estimation
           </p>
         </motion.div>
 
         {/* Main Grid */}
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Left: Input Panel */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -163,23 +163,23 @@ export default function DashboardPage() {
             className="lg:col-span-1"
           >
             <section 
-              className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm"
+              className="bg-white border border-slate-200 rounded-xl p-4 sm:p-6 shadow-sm"
               aria-labelledby="portfolio-params-heading"
             >
               <h2 
                 id="portfolio-params-heading"
-                className="text-2xl font-bold text-slate-900 mb-6"
+                className="text-xl sm:text-2xl font-bold text-slate-900 mb-4 sm:mb-6"
               >
                 Portfolio Parameters
               </h2>
 
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {/* Asset Weights */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label 
                       htmlFor="weight1"
-                      className="block text-sm font-medium text-slate-700 mb-2"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
                     >
                       Weight 1
                     </label>
@@ -189,14 +189,14 @@ export default function DashboardPage() {
                       step="0.1"
                       value={params.w1}
                       onChange={(e) => setParams({ ...params, w1: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
                       aria-label="Portfolio weight for asset 1"
                     />
                   </div>
                   <div>
                     <label 
                       htmlFor="weight2"
-                      className="block text-sm font-medium text-slate-700 mb-2"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
                     >
                       Weight 2
                     </label>
@@ -206,18 +206,18 @@ export default function DashboardPage() {
                       step="0.1"
                       value={params.w2}
                       onChange={(e) => setParams({ ...params, w2: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
                       aria-label="Portfolio weight for asset 2"
                     />
                   </div>
                 </div>
 
                 {/* Strike & Initial Price */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label 
                       htmlFor="strike"
-                      className="block text-sm font-medium text-slate-700 mb-2"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
                     >
                       Strike Price
                     </label>
@@ -226,14 +226,14 @@ export default function DashboardPage() {
                       type="number"
                       value={params.strike}
                       onChange={(e) => setParams({ ...params, strike: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
                       aria-label="Option strike price"
                     />
                   </div>
                   <div>
                     <label 
                       htmlFor="initial-price"
-                      className="block text-sm font-medium text-slate-700 mb-2"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
                     >
                       Initial Price
                     </label>
@@ -242,18 +242,18 @@ export default function DashboardPage() {
                       type="number"
                       value={params.s0}
                       onChange={(e) => setParams({ ...params, s0: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
                       aria-label="Initial asset price"
                     />
                   </div>
                 </div>
 
                 {/* Volatility & Drift */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label 
                       htmlFor="volatility"
-                      className="block text-sm font-medium text-slate-700 mb-2"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
                     >
                       Volatility (σ)
                     </label>
@@ -263,14 +263,14 @@ export default function DashboardPage() {
                       step="0.01"
                       value={params.sigma}
                       onChange={(e) => setParams({ ...params, sigma: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
                       aria-label="Market volatility sigma"
                     />
                   </div>
                   <div>
                     <label 
                       htmlFor="drift"
-                      className="block text-sm font-medium text-slate-700 mb-2"
+                      className="block text-sm font-medium text-slate-700 mb-1.5 sm:mb-2"
                     >
                       Drift (μ)
                     </label>
@@ -280,7 +280,7 @@ export default function DashboardPage() {
                       step="0.01"
                       value={params.mu}
                       onChange={(e) => setParams({ ...params, mu: parseFloat(e.target.value) })}
-                      className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors touch-manipulation"
                       aria-label="Market drift mu"
                     />
                   </div>
