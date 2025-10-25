@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, Zap, Loader2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, Zap, Loader2, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Tooltip from '../ui/Tooltip';
 
@@ -27,6 +27,50 @@ export interface ConfigPanelProps {
   error?: string | null;
 }
 
+type PresetType = 'conservative' | 'balanced' | 'aggressive';
+
+const PRESETS: Record<PresetType, ConfigParams> = {
+  conservative: {
+    w1: 0.6,
+    w2: 0.4,
+    strike: 100,
+    s0: 100,
+    mu: 0.05,
+    sigma: 0.15,
+    tau: 1.0,
+    alpha: 0.99,
+    num_samples: 10000,
+    num_qubits: 4,
+    ae_iterations: 4,
+  },
+  balanced: {
+    w1: 0.5,
+    w2: 0.5,
+    strike: 100,
+    s0: 100,
+    mu: 0.08,
+    sigma: 0.25,
+    tau: 1.0,
+    alpha: 0.95,
+    num_samples: 50000,
+    num_qubits: 5,
+    ae_iterations: 5,
+  },
+  aggressive: {
+    w1: 0.3,
+    w2: 0.7,
+    strike: 100,
+    s0: 100,
+    mu: 0.12,
+    sigma: 0.40,
+    tau: 1.0,
+    alpha: 0.90,
+    num_samples: 100000,
+    num_qubits: 6,
+    ae_iterations: 6,
+  },
+};
+
 export default function ConfigPanel({
   params,
   onParamsChange,
@@ -35,9 +79,22 @@ export default function ConfigPanel({
   error,
 }: ConfigPanelProps) {
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
+  const [activePreset, setActivePreset] = useState<PresetType | null>(null);
+  const [showPresetFeedback, setShowPresetFeedback] = useState(false);
 
   const updateParam = (key: keyof ConfigParams, value: number) => {
     onParamsChange({ ...params, [key]: value });
+    // Clear active preset when manually changing params
+    setActivePreset(null);
+  };
+
+  const applyPreset = (preset: PresetType) => {
+    onParamsChange(PRESETS[preset]);
+    setActivePreset(preset);
+    
+    // Show visual feedback
+    setShowPresetFeedback(true);
+    setTimeout(() => setShowPresetFeedback(false), 2000);
   };
 
   return (
@@ -49,6 +106,94 @@ export default function ConfigPanel({
         <h2 className="text-2xl font-bold text-slate-900 mb-6">
           Configure Parameters
         </h2>
+
+        {/* Preset Configuration Buttons */}
+        <section className="mb-8" aria-labelledby="presets-heading">
+          <h3
+            id="presets-heading"
+            className="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3"
+          >
+            Quick Presets
+          </h3>
+          <div className="flex gap-2">
+            <motion.button
+              onClick={() => applyPreset('conservative')}
+              disabled={loading}
+              className={`flex-1 h-10 px-4 rounded-full text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
+                activePreset === 'conservative'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:shadow-sm'
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              whileHover={!loading ? { scale: 1.02 } : undefined}
+              whileTap={!loading ? { scale: 0.98 } : undefined}
+              aria-label="Apply conservative risk preset"
+              aria-pressed={activePreset === 'conservative'}
+            >
+              {activePreset === 'conservative' && (
+                <Check className="w-4 h-4 inline mr-1" aria-hidden="true" />
+              )}
+              Conservative
+            </motion.button>
+
+            <motion.button
+              onClick={() => applyPreset('balanced')}
+              disabled={loading}
+              className={`flex-1 h-10 px-4 rounded-full text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
+                activePreset === 'balanced'
+                  ? 'bg-violet-600 text-white shadow-md'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:shadow-sm'
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              whileHover={!loading ? { scale: 1.02 } : undefined}
+              whileTap={!loading ? { scale: 0.98 } : undefined}
+              aria-label="Apply balanced risk preset"
+              aria-pressed={activePreset === 'balanced'}
+            >
+              {activePreset === 'balanced' && (
+                <Check className="w-4 h-4 inline mr-1" aria-hidden="true" />
+              )}
+              Balanced
+            </motion.button>
+
+            <motion.button
+              onClick={() => applyPreset('aggressive')}
+              disabled={loading}
+              className={`flex-1 h-10 px-4 rounded-full text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
+                activePreset === 'aggressive'
+                  ? 'bg-cyan-600 text-white shadow-md'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:shadow-sm'
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              whileHover={!loading ? { scale: 1.02 } : undefined}
+              whileTap={!loading ? { scale: 0.98 } : undefined}
+              aria-label="Apply aggressive risk preset"
+              aria-pressed={activePreset === 'aggressive'}
+            >
+              {activePreset === 'aggressive' && (
+                <Check className="w-4 h-4 inline mr-1" aria-hidden="true" />
+              )}
+              Aggressive
+            </motion.button>
+          </div>
+
+          {/* Visual Feedback */}
+          <AnimatePresence>
+            {showPresetFeedback && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2"
+                role="status"
+                aria-live="polite"
+              >
+                <Check className="w-4 h-4 text-green-600" aria-hidden="true" />
+                <span className="text-sm text-green-700 font-medium">
+                  Preset applied successfully
+                </span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </section>
 
         {/* Basic Parameters Section */}
         <section className="mb-6" aria-labelledby="basic-params-heading">

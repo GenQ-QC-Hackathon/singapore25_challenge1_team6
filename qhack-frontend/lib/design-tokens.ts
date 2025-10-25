@@ -207,9 +207,26 @@ export const spacing = {
 } as const;
 
 // ============================================================================
-// SHADOW SYSTEM (Layered Depth)
+// SHADOW SYSTEM (Layered Depth) - Task 21
 // ============================================================================
-
+/**
+ * Multi-layer shadow system for creating clear visual hierarchy
+ * 
+ * Usage Guidelines (Requirements 10.1, 10.5):
+ * - sm: Subtle elevation for inputs, small cards, navbar, footer
+ * - default: Standard elevation (rarely used directly)
+ * - md: Cards, panels, result cards, default elevation
+ * - lg: Modals, popovers, elevated panels, primary buttons, comparison view
+ * - xl: Hover states for cards (md → xl transition)
+ * - 2xl: Maximum elevation for overlays and modals on hover
+ * - inner: Focus states for input fields (adds depth on focus)
+ * - none: Remove shadows
+ * 
+ * Hover Transitions:
+ * - Cards: shadow-md → shadow-xl (200ms ease-out)
+ * - Buttons: shadow-lg → shadow-xl (200ms ease-out)
+ * - Comparison: shadow-lg → shadow-2xl (300ms ease-out)
+ */
 export const shadows = {
   sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
   default: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',

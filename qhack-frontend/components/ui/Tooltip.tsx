@@ -63,7 +63,7 @@ export default function Tooltip({
             role="tooltip"
           >
             <div className="relative">
-              <div className="bg-slate-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs shadow-lg">
+              <div className="bg-slate-900/95 backdrop-blur-md text-white text-xs rounded-lg px-3 py-2 max-w-xs shadow-lg border border-slate-700/50">
                 {content}
               </div>
               <div
