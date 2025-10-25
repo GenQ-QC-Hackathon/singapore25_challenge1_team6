@@ -22,18 +22,18 @@ export default function PortfolioConfig() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      className="glass-panel p-6 rounded-2xl neon-border-magenta"
+      transition={{ duration: 0.3 }}
+      className="bg-white border border-slate-200 rounded-xl p-6"
     >
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 rounded-lg neon-border-magenta bg-neon-magenta/10 flex items-center justify-center">
-          <Settings className="w-5 h-5 neon-text-magenta" />
+        <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+          <Settings className="w-5 h-5 text-blue-600" />
         </div>
         <div>
-          <h3 className="text-xl font-display font-bold neon-text-magenta">
+          <h3 className="text-xl font-semibold text-slate-900">
             Portfolio Configuration
           </h3>
-          <p className="text-xs text-gray-400 font-mono">Simulation Parameters</p>
+          <p className="text-xs text-slate-500 font-mono">Simulation Parameters</p>
         </div>
       </div>
 
