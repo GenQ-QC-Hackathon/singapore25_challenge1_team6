@@ -131,7 +131,7 @@ export default function DashboardPage() {
     : null;
 
   return (
-    <main className="h-[90vh] bg-gradient-to-br from-slate-50 to-blue-50 pt-24 pb-20 px-4 sm:px-6">
+    <main className="h-[160vh] bg-gradient-to-br from-slate-50 to-blue-50 pt-24 pb-20 px-4 sm:px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <motion.div
@@ -425,7 +425,7 @@ export default function DashboardPage() {
           </motion.div>
 
           {/* Right: Results */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-6" style={{marginLeft: "200px"}} >
             {/* Classical Result */}
             <AnimatePresence>
               {classicalResult && (
@@ -437,6 +437,7 @@ export default function DashboardPage() {
                   className="bg-white border-l-4 border-blue-500 rounded-xl p-6 shadow-sm"
                   aria-labelledby="classical-results-heading"
                   aria-live="polite"
+                  style={{padding:"40px", marginBottom: "50px", display: "inline-block"}}
                 >
                   <div className="flex items-center justify-between mb-6">
                     <h3
@@ -499,6 +500,7 @@ export default function DashboardPage() {
                   className="bg-white border-l-4 border-violet-500 rounded-xl p-6 shadow-sm"
                   aria-labelledby="quantum-results-heading"
                   aria-live="polite"
+                  style={{padding:"40px", marginBottom: "50px", display: "inline-block"}}
                 >
                   <div className="flex items-center justify-between mb-6">
                     <h3
@@ -562,9 +564,9 @@ export default function DashboardPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white border-2 border-transparent rounded-xl p-6 shadow-sm relative"
+                  className="bg-white  rounded-xl p-6 shadow-sm relative"
                   style={{
-                    borderImage: 'linear-gradient(to right, rgb(59, 130, 246), rgb(139, 92, 246)) 1',
+                    borderImage: 'linear-gradient(to right, rgb(59, 130, 246), rgb(139, 92, 246)) 1', padding:"40px", display: "inline-block"
                   }}
                   aria-labelledby="comparison-heading"
                   aria-live="polite"
