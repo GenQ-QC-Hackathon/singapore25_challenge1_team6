@@ -37,8 +37,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputId = id || `input-${Math.random().toString(36).substring(2, 11)}`;
     const hasError = !!error;
 
-    // Base styles
-    const baseStyles = 'w-full rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-50';
+    // Base styles with subtle shadow
+    const baseStyles = 'w-full rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-50 shadow-sm';
 
     // Size styles
     const sizeStyles = {
@@ -47,10 +47,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       lg: 'h-12 px-4 text-base',
     };
 
-    // State styles
+    // State styles with inner shadow on focus
     const stateStyles = hasError
-      ? 'border-red-300 focus:border-red-500 focus:ring-red-100'
-      : 'border-slate-200 focus:border-blue-500 focus:ring-blue-100';
+      ? 'border-red-300 focus:border-red-500 focus:ring-red-100 focus:shadow-inner'
+      : 'border-slate-200 focus:border-blue-500 focus:ring-blue-100 focus:shadow-inner';
 
     // Icon padding adjustments
     const iconPaddingStyles = leftIcon ? 'pl-10' : rightIcon ? 'pr-10' : '';

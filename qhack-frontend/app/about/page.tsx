@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Target, Lightbulb, Rocket } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 import { teamMembers } from '@/lib/data';
 
 export default function AboutPage() {
@@ -20,28 +20,34 @@ export default function AboutPage() {
           <h1 
             id="about-heading"
             className="text-5xl md:text-6xl font-bold mb-2"
+
           >
             <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent"
            >
               Meet the Team
             </span>
           </h1>
+
           <p className="text-lg text-slate-600 max-w-3xl mx-auto text-center" style={{marginLeft: "250px", marginTop: "30px", marginBottom: "30px", }}>
             A passionate group of quantum computing enthusiasts and financial engineers
             revolutionizing risk management with quantum algorithms
+
           </p>
         </motion.div>
 
-        {/* Team Cards */}
-        <section aria-labelledby="team-section-heading">
+        {/* Team Cards - 3 Column Grid */}
+        <section aria-labelledby="team-section-heading" className="mb-8">
           <h2 id="team-section-heading" className="sr-only">Team Members</h2>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14 m-10" style={{marginBottom: "50px"}}>
+
             {teamMembers.map((member, index) => (
               <motion.article
                 key={member.name}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
+
                 className="bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1"
                 style={{padding: "20px"}}
               >
@@ -50,9 +56,10 @@ export default function AboutPage() {
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-violet-500 p-1 mx-auto">
                   <div className="w-full h-full rounded-full bg-white flex items-center justify-center" >
                     <span className="text-3xl">{member.avatar}</span>
+
                   </div>
                 </div>
-              </div>
+
 
               {/* Info */}
               <h3 className="text-lg font-bold text-slate-900 text-center mb-1">
@@ -93,17 +100,21 @@ export default function AboutPage() {
             </motion.article>
           ))}
         </div>
+
         </section>
 
-        {/* Mission Section */}
+        {/* Combined Mission Section - Single Centered Card */}
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.3 }}
+
           className="grid md:grid-cols-3 gap-6 mb-6"
+
           aria-labelledby="mission-section-heading"
           style={{marginTop:"50px", marginBottom:"50px"}}
         >
+
           <h2 id="mission-section-heading" className="sr-only">Our Mission and Values</h2>
           {/* Our Mission */}
           <article className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm " style={{padding: "20px"}}>
@@ -204,6 +215,7 @@ export default function AboutPage() {
             Team QHackers | Quantum Finance Risk Engine
           </p>
         </motion.div>
+
       </div>
     </main>
   );

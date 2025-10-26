@@ -5,6 +5,14 @@ import { ArrowRight, Zap, TrendingUp, Shield } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 
+// Preload dashboard page for faster navigation
+if (typeof window !== 'undefined') {
+  const link = document.createElement('link');
+  link.rel = 'prefetch';
+  link.href = '/dashboard';
+  document.head.appendChild(link);
+}
+
 export default function Home() {
   return (
     <div className="h-[93vh] flex flex-col">
@@ -20,7 +28,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-[1.2]"
           >
             <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
               Quantum Risk Engine
@@ -77,39 +85,39 @@ export default function Home() {
             <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mb-4 mx-auto" style={{marginBottom: "20px", marginLeft: "100px"}}>
               <Zap className="w-6 h-6 text-white" aria-hidden="true"  />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">
+            <h3 className="text-xl font-bold text-slate-900 mb-2 leading-[1.2]">
               Quantum Speedup
             </h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-[1.5]">
               Quadratic advantage with Quantum Amplitude Estimation
             </p>
-          </article>
+          </motion.article>
 
           {/* Feature 2: Real-Time Analytics */}
           <article className="bg-blue-50 shadow-md hover:shadow-xl rounded-xl p-6 transition-all duration-200 hover:-translate-y-2 text-center" style={{padding: "20px"}}>
             <div className="w-12 h-12 rounded-full bg-violet-500 flex items-center justify-center mb-4 mx-auto" style={{marginBottom: "20px", marginLeft: "100px"}}>
               <TrendingUp className="w-6 h-6 text-white" aria-hidden="true" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">
+            <h3 className="text-xl font-bold text-slate-900 mb-2 leading-[1.2]">
               Real-Time Analytics
             </h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-[1.5]">
               Visualize PFE and CVA calculations instantly
             </p>
-          </article>
+          </motion.article>
 
           {/* Feature 3: Risk Mitigation */}
           <article className="bg-blue-50 shadow-md hover:shadow-xl rounded-xl p-6 transition-all duration-200 hover:-translate-y-2 text-center" style={{padding: "20px"}}>
             <div className="w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center mb-4 mx-auto"  style={{marginBottom: "20px", marginLeft: "100px"}}>
               <Shield className="w-6 h-6 text-white" aria-hidden="true" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">
+            <h3 className="text-xl font-bold text-slate-900 mb-2 leading-[1.2]">
               Risk Mitigation
             </h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-[1.5]">
               Advanced portfolio risk analysis for financial stability
             </p>
-          </article>
+          </motion.article>
         </motion.div>
       </section>
       

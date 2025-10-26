@@ -17,7 +17,8 @@ export default function Navbar() {
 
   return (
     <nav 
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200"
+      id="navigation"
+      className="fixed top-0 left-0 right-0 z-50 glass shadow-sm"
       style={{ height: '64px' }}
       role="navigation"
       aria-label="Main navigation"
@@ -28,10 +29,11 @@ export default function Navbar() {
           <Link 
             href="/"
             aria-label="QHack - Home"
+            className="focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 rounded-lg"
           >
-            <div className="flex items-center gap-3 cursor-pointer transition-opacity duration-200 hover:opacity-80">
-              <Activity className="w-8 h-8 text-blue-600" aria-hidden="true" />
-              <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            <div className="flex items-center gap-3 cursor-pointer transition-all duration-200 hover:opacity-80 active:scale-98">
+              <Activity className="w-8 h-8 text-blue-600 transition-transform duration-200 hover:scale-110" aria-hidden="true" />
+              <h1 className="text-2xl font-bold text-slate-900 tracking-tight leading-[1.2]">
                 QHack
               </h1>
             </div>
@@ -76,14 +78,14 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            className="md:hidden p-2 rounded-lg hover:bg-slate-100 active:bg-slate-200 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-slate-700" aria-hidden="true" />
+              <X className="w-6 h-6 text-slate-700 transition-transform duration-200" aria-hidden="true" />
             ) : (
-              <Menu className="w-6 h-6 text-slate-700" aria-hidden="true" />
+              <Menu className="w-6 h-6 text-slate-700 transition-transform duration-200" aria-hidden="true" />
             )}
           </button>
         </div>
@@ -91,7 +93,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-lg">
+        <div className="md:hidden absolute top-16 left-0 right-0 glass-strong shadow-lg">
           <div className="container mx-auto px-4 py-4">
             <ul className="space-y-2" role="list">
               {navLinks.map((link) => {

@@ -1,13 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Activity, Clock, BarChart3, Loader2 } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { apiClient, ClassicalResult, QuantumResult } from '@/lib/api';
+import { ConfigParams } from '@/components/dashboard/ConfigPanel';
+
+// Lazy load heavy components for better initial load performance
+const ConfigPanel = lazy(() => import('@/components/dashboard/ConfigPanel'));
+const ResultCard = lazy(() => import('@/components/dashboard/ResultCard'));
+const ComparisonView = lazy(() => import('@/components/dashboard/ComparisonView'));
+const EmptyState = lazy(() => import('@/components/dashboard/EmptyState'));
+
+// Loading fallback component
+function ComponentLoader() {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+}
 
 export default function DashboardPage() {
   // Form state
-  const [params, setParams] = useState({
+  const [params, setParams] = useState<ConfigParams>({
     w1: 0.5,
     w2: 0.5,
     strike: 100,
@@ -26,68 +42,19 @@ export default function DashboardPage() {
   const [quantumResult, setQuantumResult] = useState<QuantumResult | null>(null);
 
   // Loading state
-  const [loading, setLoading] = useState({
-    classical: false,
-    quantum: false,
-    both: false,
-  });
+  const [loading, setLoading] = useState(false);
 
   // Error state
   const [error, setError] = useState<string | null>(null);
 
-  const runClassical = async () => {
-    setLoading({ ...loading, classical: true });
-    setError(null);
-    try {
-      const result = await apiClient.simulateClassical({
-        w1: params.w1,
-        w2: params.w2,
-        strike: params.strike,
-        s0: params.s0,
-        mu: params.mu,
-        sigma: params.sigma,
-        tau: params.tau,
-        alpha: params.alpha,
-        num_samples: params.num_samples,
-        seed: 42,
-      });
-      setClassicalResult(result);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading({ ...loading, classical: false });
-    }
-  };
+  // Mobile sidebar state
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
-  const runQuantum = async () => {
-    setLoading({ ...loading, quantum: true });
+  const runBothSimulations = async () => {
+    setLoading(true);
     setError(null);
-    try {
-      const result = await apiClient.simulateQuantum({
-        w1: params.w1,
-        w2: params.w2,
-        strike: params.strike,
-        s0: params.s0,
-        mu: params.mu,
-        sigma: params.sigma,
-        tau: params.tau,
-        alpha: params.alpha,
-        num_qubits: params.num_qubits,
-        ae_iterations: params.ae_iterations,
-        backend_name: 'aer_simulator',
-        seed: 42,
-      });
-      setQuantumResult(result);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading({ ...loading, quantum: false });
-    }
-  };
-
-  const runBoth = async () => {
-    setLoading({ classical: true, quantum: true, both: true });
-    setError(null);
+    setIsMobileSidebarOpen(false); // Close mobile sidebar when running
+    
     try {
       const [classical, quantum] = await Promise.all([
         apiClient.simulateClassical({
@@ -122,13 +89,12 @@ export default function DashboardPage() {
     } catch (err: any) {
       setError(err.message);
     } finally {
-      setLoading({ classical: false, quantum: false, both: false });
+      setLoading(false);
     }
   };
 
-  const speedup = classicalResult && quantumResult
-    ? (classicalResult.runtime_ms / quantumResult.runtime_ms).toFixed(2)
-    : null;
+  const hasResults = classicalResult || quantumResult;
+  const hasBothResults = classicalResult && quantumResult;
 
   return (
     <main className="h-[160vh] bg-gradient-to-br from-slate-50 to-blue-50 pt-24 pb-20 px-4 sm:px-6">
@@ -340,30 +306,40 @@ export default function DashboardPage() {
                   />
                 </div>
 
-                {/* Quantum Qubits */}
-                <div>
-                  <label
-                    htmlFor="qubits"
-                    className="block text-sm font-medium text-slate-700 mb-3"
-                  >
-                    Qubits: {params.num_qubits} (bins: {Math.pow(2, params.num_qubits)})
-                  </label>
-                  <input
-                    id="qubits"
-                    type="range"
-                    min="3"
-                    max="8"
-                    step="1"
-                    value={params.num_qubits}
-                    onChange={(e) => setParams({ ...params, num_qubits: parseInt(e.target.value) })}
-                    className="w-full h-3 accent-violet-500 touch-manipulation"
-                    aria-label={`Number of qubits: ${params.num_qubits}, bins: ${Math.pow(2, params.num_qubits)}`}
-                    aria-valuemin={3}
-                    aria-valuemax={8}
-                    aria-valuenow={params.num_qubits}
-                  />
+        {/* Results Area - Desktop & Tablet */}
+        <div className="hidden md:block md:w-2/3 lg:w-3/4 overflow-y-auto">
+          <div className="p-8 space-y-6">
+            {/* Empty State or Results */}
+            {!hasResults ? (
+              <Suspense fallback={<ComponentLoader />}>
+                <EmptyState />
+              </Suspense>
+            ) : (
+              <>
+                {/* Result Cards */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <AnimatePresence>
+                    {classicalResult && (
+                      <Suspense fallback={<ComponentLoader />}>
+                        <ResultCard
+                          type="classical"
+                          result={classicalResult}
+                        />
+                      </Suspense>
+                    )}
+                  </AnimatePresence>
+
+                  <AnimatePresence>
+                    {quantumResult && (
+                      <Suspense fallback={<ComponentLoader />}>
+                        <ResultCard
+                          type="quantum"
+                          result={quantumResult}
+                        />
+                      </Suspense>
+                    )}
+                  </AnimatePresence>
                 </div>
-              </div>
 
               {/* Action Buttons */}
               <div className="mt-8 space-y-3" style={{marginTop: "20px"}}>
@@ -380,7 +356,12 @@ export default function DashboardPage() {
                   ) : (
                     <><Zap className="w-5 h-5" aria-hidden="true" /> Run Comparison</>
                   )}
-                </button>
+                </AnimatePresence>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <button
@@ -395,34 +376,67 @@ export default function DashboardPage() {
                     Classical
                   </button>
 
-                  <button
-                    onClick={runQuantum}
-                    disabled={loading.quantum}
-                    className="py-3.5 bg-white border border-violet-300 rounded-lg font-medium text-violet-600 text-base flex items-center justify-center gap-2 hover:bg-violet-50 transition-colors duration-200 disabled:opacity-50 touch-manipulation active:scale-95"
-                    aria-label="Run quantum amplitude estimation simulation"
-                    aria-busy={loading.quantum}
-                  >
-                    {loading.quantum ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Zap className="w-4 h-4" aria-hidden="true" />}
-                    Quantum
-                  </button>
-                </div>
-              </div>
+        {/* Mobile Results Area */}
+        <div className="flex-1 overflow-y-auto p-4">
+          {!hasResults ? (
+            <Suspense fallback={<ComponentLoader />}>
+              <EmptyState />
+            </Suspense>
+          ) : (
+            <div className="space-y-6">
+              {/* Result Cards - Stacked */}
+              <AnimatePresence>
+                {classicalResult && (
+                  <Suspense fallback={<ComponentLoader />}>
+                    <ResultCard
+                      type="classical"
+                      result={classicalResult}
+                    />
+                  </Suspense>
+                )}
+              </AnimatePresence>
 
-              {/* Error Display */}
-              {error && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg"
-                  role="alert"
-                  aria-live="assertive"
-                >
-                  <p className="text-red-600 text-sm">{error}</p>
-                </motion.div>
-              )}
-            </section>
+              <AnimatePresence>
+                {quantumResult && (
+                  <Suspense fallback={<ComponentLoader />}>
+                    <ResultCard
+                      type="quantum"
+                      result={quantumResult}
+                    />
+                  </Suspense>
+                )}
+              </AnimatePresence>
+
+              {/* Comparison Panel */}
+              <AnimatePresence>
+                {hasBothResults && (
+                  <Suspense fallback={<ComponentLoader />}>
+                    <ComparisonView
+                      classicalResult={classicalResult}
+                      quantumResult={quantumResult}
+                    />
+                  </Suspense>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+        </div>
+
+        {/* Mobile Sticky Configure Button */}
+        {!isMobileSidebarOpen && (
+          <motion.div
+            initial={{ y: 100 }}
+            animate={{ y: 0 }}
+            className="sticky bottom-0 left-0 right-0 p-4 glass border-t-0 shadow-lg z-10"
+          >
+            <button
+              onClick={() => setIsMobileSidebarOpen(true)}
+              className="w-full h-14 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg font-semibold text-white text-base shadow-lg hover:shadow-xl active:scale-98 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2"
+            >
+              Configure Parameters
+            </button>
           </motion.div>
+
 
           {/* Right: Results */}
           <div className="lg:col-span-2 space-y-6" style={{marginLeft: "200px"}} >
@@ -624,6 +638,7 @@ export default function DashboardPage() {
             </AnimatePresence>
           </div>
         </div>
+
       </div>
     </main>
   );
