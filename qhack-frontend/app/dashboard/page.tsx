@@ -97,7 +97,7 @@ export default function DashboardPage() {
   const hasBothResults = classicalResult && quantumResult;
 
   return (
-    <main className="h-[90vh] bg-gradient-to-br from-slate-50 to-blue-50 pt-24 pb-20 px-4 sm:px-6">
+    <main className="h-[160vh] bg-gradient-to-br from-slate-50 to-blue-50 pt-24 pb-20 px-4 sm:px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <motion.div
@@ -436,43 +436,209 @@ export default function DashboardPage() {
               Configure Parameters
             </button>
           </motion.div>
-        )}
 
-        {/* Mobile Sidebar Drawer */}
-        <AnimatePresence>
-          {isMobileSidebarOpen && (
-            <>
-              {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="fixed inset-0 glass-dark z-30"
-                onClick={() => setIsMobileSidebarOpen(false)}
-              />
 
-              {/* Drawer */}
-              <motion.div
-                initial={{ x: '-100%' }}
-                animate={{ x: 0 }}
-                exit={{ x: '-100%' }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="fixed inset-y-0 left-0 w-full max-w-md bg-white border-r border-slate-200 shadow-2xl z-40 overflow-y-auto"
-              >
-                <Suspense fallback={<ComponentLoader />}>
-                  <ConfigPanel
-                    params={params}
-                    onParamsChange={setParams}
-                    onRunSimulation={runBothSimulations}
-                    loading={loading}
-                    error={error}
-                  />
-                </Suspense>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
+          {/* Right: Results */}
+          <div className="lg:col-span-2 space-y-6" style={{marginLeft: "200px"}} >
+            {/* Classical Result */}
+            <AnimatePresence>
+              {classicalResult && (
+                <motion.section
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white border-l-4 border-blue-500 rounded-xl p-6 shadow-sm"
+                  aria-labelledby="classical-results-heading"
+                  aria-live="polite"
+                  style={{padding:"40px", marginBottom: "50px", display: "inline-block"}}
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <h3
+                      id="classical-results-heading"
+                      className="text-2xl font-bold text-slate-900 flex items-center gap-2"
+                    >
+                      <Activity className="w-6 h-6 text-blue-500" aria-hidden="true" />
+                      Classical Monte Carlo
+                    </h3>
+                    <div className="px-4 py-2 bg-blue-50 border border-blue-200 rounded-full">
+                      <span className="text-blue-600 font-mono text-sm">O(1/√N)</span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <div className="bg-slate-50 rounded-lg p-5">
+                      <p className="text-slate-600 text-sm mb-2 font-medium">Potential Future Exposure</p>
+                      <p className="text-3xl font-bold text-blue-600">
+                        ${classicalResult.pfe.toFixed(2)}
+                      </p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-5">
+                      <p className="text-slate-600 text-sm mb-2 font-medium">Expected Exposure</p>
+                      <p className="text-3xl font-bold text-blue-600">
+                        ${classicalResult.expected_exposure.toFixed(2)}
+                      </p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-5">
+                      <p className="text-slate-600 text-sm mb-2 flex items-center gap-1 font-medium">
+                        <Clock className="w-4 h-4" /> Runtime
+                      </p>
+                      <p className="text-3xl font-bold text-blue-600">
+                        {classicalResult.runtime_ms.toFixed(1)}ms
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1">Samples Used</p>
+                      <p className="text-xl font-mono text-slate-900">{classicalResult.samples_used.toLocaleString()}</p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1">Std Deviation</p>
+                      <p className="text-xl font-mono text-slate-900">{classicalResult.sample_std.toFixed(2)}</p>
+                    </div>
+                  </div>
+                </motion.section>
+              )}
+            </AnimatePresence>
+
+            {/* Quantum Result */}
+            <AnimatePresence>
+              {quantumResult && (
+                <motion.section
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white border-l-4 border-violet-500 rounded-xl p-6 shadow-sm"
+                  aria-labelledby="quantum-results-heading"
+                  aria-live="polite"
+                  style={{padding:"40px", marginBottom: "50px", display: "inline-block"}}
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <h3
+                      id="quantum-results-heading"
+                      className="text-2xl font-bold text-slate-900 flex items-center gap-2"
+                    >
+                      <Zap className="w-6 h-6 text-violet-500" aria-hidden="true" />
+                      Quantum Amplitude Estimation
+                    </h3>
+                    <div className="px-4 py-2 bg-violet-50 border border-violet-200 rounded-full">
+                      <span className="text-violet-600 font-mono text-sm">O(1/N)</span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <div className="bg-slate-50 rounded-lg p-5">
+                      <p className="text-slate-600 text-sm mb-2 font-medium">Potential Future Exposure</p>
+                      <p className="text-3xl font-bold text-violet-600">
+                        ${quantumResult.pfe.toFixed(2)}
+                      </p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-5">
+                      <p className="text-slate-600 text-sm mb-2 font-medium">Expected Exposure</p>
+                      <p className="text-3xl font-bold text-violet-600">
+                        ${quantumResult.expected_exposure?.toFixed(2) || 'N/A'}
+                      </p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-5">
+                      <p className="text-slate-600 text-sm mb-2 flex items-center gap-1 font-medium">
+                        <Clock className="w-4 h-4" /> Runtime
+                      </p>
+                      <p className="text-3xl font-bold text-violet-600">
+                        {quantumResult.runtime_ms.toFixed(1)}ms
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1">Qubits</p>
+                      <p className="text-xl font-mono text-slate-900">{quantumResult.num_qubits}</p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1">Bins</p>
+                      <p className="text-xl font-mono text-slate-900">{quantumResult.discretization_bins}</p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-4">
+                      <p className="text-slate-600 text-sm mb-1">AE Iter</p>
+                      <p className="text-xl font-mono text-slate-900">{quantumResult.ae_iterations}</p>
+                    </div>
+                  </div>
+                </motion.section>
+              )}
+            </AnimatePresence>
+
+            {/* Comparison */}
+            <AnimatePresence>
+              {classicalResult && quantumResult && (
+                <motion.section
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white  rounded-xl p-6 shadow-sm relative"
+                  style={{
+                    borderImage: 'linear-gradient(to right, rgb(59, 130, 246), rgb(139, 92, 246)) 1', padding:"40px", display: "inline-block"
+                  }}
+                  aria-labelledby="comparison-heading"
+                  aria-live="polite"
+                >
+                  <h3
+                    id="comparison-heading"
+                    className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"
+                  >
+                    <BarChart3 className="w-6 h-6 text-blue-600" aria-hidden="true" />
+                    Performance Comparison
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6 shadow-sm">
+                      <p className="text-slate-700 text-sm font-medium mb-2">PFE Difference</p>
+                      <p className="text-3xl font-bold text-slate-900 mb-2">
+                        ${Math.abs(classicalResult.pfe - quantumResult.pfe).toFixed(2)}
+                      </p>
+                      <p className="text-sm text-slate-600">
+                        {((Math.abs(classicalResult.pfe - quantumResult.pfe) / classicalResult.pfe) * 100).toFixed(2)}% variance
+                      </p>
+                    </div>
+
+                    <div className="bg-gradient-to-br from-violet-50 to-violet-100 rounded-lg p-6 shadow-sm">
+                      <p className="text-slate-700 text-sm font-medium mb-2">Runtime Comparison</p>
+                      <p className="text-3xl font-bold text-slate-900 mb-2">
+                        {speedup}x
+                      </p>
+                      <p className="text-sm text-slate-600">
+                        {classicalResult.runtime_ms > quantumResult.runtime_ms ? 'Quantum faster' : 'Classical faster'}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="bg-slate-50 rounded-lg p-4 shadow-sm">
+                      <p className="text-slate-600 text-sm font-medium mb-2">Classical Complexity</p>
+                      <p className="text-lg font-mono text-blue-600">O(1/√N)</p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-4 shadow-sm">
+                      <p className="text-slate-600 text-sm font-medium mb-2">Quantum Complexity</p>
+                      <p className="text-lg font-mono text-violet-600">O(1/N)</p>
+                    </div>
+                  </div>
+
+                  <div className="p-5 bg-gradient-to-r from-blue-50 via-violet-50 to-blue-50 rounded-lg border border-slate-200">
+                    <p className="text-center text-slate-700 text-base leading-relaxed">
+                      Quantum amplitude estimation provides{' '}
+                      <span className="font-semibold text-blue-600">quadratic speedup</span>
+                      {' '}for large-scale risk calculations
+                    </p>
+                  </div>
+                </motion.section>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
       </div>
     </main>
   );
